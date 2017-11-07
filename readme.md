@@ -10,3 +10,9 @@ Feel free to do anything, really, as long as you're not removing things without 
 
 Perhaps leave it tidy so we can have it indexed by search engines for the next batch next year!
 
+## Directory Structure
+- Lectures: For individual lecture notes and slides
+- Readings: Related PDF readings or case studies 
+- Tutorials: Notes from workshops
+- img: Folder for any images appended within Markdown files on the root folder. Put all your image dependencies if you paste pictures on your Markdown files here
+- root: For general notes such as summaries, appendix research and aggregation of notes. 
