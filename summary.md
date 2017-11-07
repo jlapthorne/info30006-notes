@@ -9,7 +9,10 @@
   - [Course Outline](#course-outline)
   - [TOC](#toc)
   - [Guest Lecture on Infosec](#guest-lecture-on-infosec)
-  - [Introduction to Security and Privay](#introduction-to-security-and-privay)
+  - [Introduction to Security and Privacy](#introduction-to-security-and-privacy)
+    - [What is Infosec](#what-is-infosec)
+    - [Threats to Infosec](#threats-to-infosec)
+    - [The Security Threat Landscape](#the-security-threat-landscape)
   - [Managing Security Risks](#managing-security-risks)
   - [Symmetric and Asymmetric Cryptography](#symmetric-and-asymmetric-cryptography)
     - [RSA](#rsa)
@@ -25,20 +28,33 @@
     - [Dealing with Anonymity Issues](#dealing-with-anonymity-issues)
     - [Software to use](#software-to-use)
   - [Privacy in the Modern World and Differential Privacy](#privacy-in-the-modern-world-and-differential-privacy)
+    - [Security through Obscurity](#security-through-obscurity)
+    - [Differential Privacy](#differential-privacy)
   - [The Security Audit](#the-security-audit)
   - [Industrial Perspectives of Infosec](#industrial-perspectives-of-infosec)
-  - [Knowledge Leakage and Security Analysis](#knowledge-leakage-and-security-analysis)
+  - [Security Analysis](#security-analysis)
+    - [Basic Security Analysis](#basic-security-analysis)
+    - [What security strategies are effective](#what-security-strategies-are-effective)
+    - [Types of security strategies](#types-of-security-strategies)
+    - [The Common ADversary](#the-common-adversary)
+  - [Knowledge Leak](#knowledge-leak)
+    - [Data vs Information vs Knowledge](#data-vs-information-vs-knowledge)
+    - [Knowledge Leakage](#knowledge-leakage)
+    - [Knowledge Leakage Risk](#knowledge-leakage-risk)
+    - [Knowledge Leakage - Multidimensional Problem](#knowledge-leakage---multidimensional-problem)
   - [Concepts](#concepts)
     - [CIA](#cia)
     - [Australian Privacy Principles](#australian-privacy-principles)
     - [Privacy, Anonymity, and Security](#privacy-anonymity-and-security)
-    - [Threats, Vulnerabilities, Risks](#threats-vulnerabilities-risks)
+    - [Assets, Threats, Vulnerabilities, Risks](#assets-threats-vulnerabilities-risks)
     - [The Definition of Infosec](#the-definition-of-infosec)
     - [Properties of a secure system](#properties-of-a-secure-system)
     - [Secrecy and Confidentiality](#secrecy-and-confidentiality)
     - [Privacy and Anonymity](#privacy-and-anonymity)
     - [Authentication](#authentication)
-    - [SETA - Security Training and Awareness](#seta---security-training-and-awareness)
+    - [Cryptography and Encryptions](#cryptography-and-encryptions)
+    - [Security through Obscurity](#security-through-obscurity)
+    - [SETA - Security Education Training and Awareness](#seta---security-education-training-and-awareness)
     - [Risk Management](#risk-management)
   - [Case Studies](#case-studies)
     - [Election Hacking](#election-hacking)
@@ -55,20 +71,50 @@
 
 ## Guest Lecture on Infosec 
 
-## Introduction to Security and Privay 
+## Introduction to Security and Privacy
+### What is Infosec 
+
+We want to protect knowledge as a competitive advantage. We safeguard information through the use of:
+
+- Compartmentalization
+- Physical barriers/protection
+- Legal protection
+- Encryption
+
+### Threats to Infosec
+
+Categories | Examples
+-|-
+Acts of human error or failure | Accidents, employee mistakes. Human error is all about mistakes in putting in information
+Compromises to intellectual property | Piracy, copyright infringement. Property or works which are intangible and requires legal protection. It's your responsibility to put the copyright on things. 
+Deliberate acts of espionage or tresspass | Hiring someone from the competitor to leak trade secrets, unauthorized access and/or data collection, grey/black hat and shoulder surfing, competitive or industrial espionage
+Deliberate acts of information retrieval and extortion |  Steals information and demands money or compensation for its return or nondisclosue
+Deliberate acts of sabotage or vandalism | Political, protests, hacktivists, nation state hackers. 
+Deliberate acts of theft | Compromising information and stealing resources, trade secrets, physical theft, or intellectual property
+Deliberate software attacks | Malicious attacks, such as viruses, worms, backdoors, etc
+Forces of nature | Uncontrollable events and natural disasters
+Deviation of service | Internet service, communications, and power irregularities
+Hardware Failure | Hardware screws up and shit
+Software Failure | Software commits suicide
+Techincal obsolences | Old stuff
+
+### The Security Threat Landscape
+12 categories 
 
 ## Managing Security Risks
 *"Security is mostly a superstition, life is either a daring adventure or nothing."*
 
 - Today's security risks
   - Drones weaponized
-    - Until people have to defend it
+    - Until people have to defend against it 
   - Encryption clash between governments
   - Russian hacks lmao
   - Overreliance on IOT
   - Leaking of Private Information
   - Integrity of Information
     - Automated misinformation or falsified information as a compromise
+
+Threats can't be controlled, and you can't do much to identify them. In order to minimize the risk of an attack, you have to identify them.
 
 ## Symmetric and Asymmetric Cryptography 
 - symmetric: one key for both encrypting and decrypting
@@ -232,11 +278,24 @@
 - Keypass
 - Keybase
 - Authenticators
-- Yubikeys
-- 
-
+- Yubikeys (sans the PGP support - because it's currently fucked)
 
 ## Privacy in the Modern World and Differential Privacy 
+### Security through Obscurity 
+- "You can't be attacked when people don't know you exist"
+- Requires knowledge of data and information of software/infrastructure to attack against this
+- The less you reveal, the better - don't reveal more than you have to to the world
+- We're trying to answer "what is the least required amount of information to get the job done?"
+  - Obscurity doesn't mean intended misdirection
+  - Can violate the principle of simple means more secure
+  - It's not always practical to have honeypots but it's not always the intention with the saying
+
+### Differential Privacy
+https://research.neustar.biz/2014/09/08/differential-privacy-the-basics/
+
+The aim is to add random noise to distort data. 
+
+Baseline principle: Flip a coin. If it's heads, answer honestly. If it's tails, flip it again and answer depending if it's heads or tails.
 
 ## The Security Audit 
 - Patch and update
@@ -247,10 +306,99 @@
 
 ## Industrial Perspectives of Infosec 
 
-## Knowledge Leakage and Security Analysis 
+
+## Security Analysis 
+### Basic Security Analysis
+- **Who/What Are We Protecting**
+- **Who/What is the adversary/threat**
+- **What are the security requirements**
+
+### What security strategies are effective
+- No security
+- Resilience to attacks
+- Detection, recovery and countermeasures 
+
+### Types of security strategies 
+- Prevention and Detection
+  - Passive defense
+  - Not all measures are physical 
+  - Hardest strategy to implement and often the most expensive
+  - Experts can still find target
+- Deterrance
+- Surveillance
+- Detection and response
+- Perimeter defense
+- Compartmentalization
+- Layering
+
+
+### The Common ADversary
+- Attacker action
+  - Passive (just there waiting or unintentionally recovering exploits)
+  - Active (for malicious purposes)
+- Attacker sophistication
+  - Script kiddies vs the CIA
+- Attacker capability
+
+## Knowledge Leak 
+### Data vs Information vs Knowledge 
+- You can know what to do, but it doesn't mean you know how to do it
+  - Information vs Knowledge 
+- Tacit knowledge: Not so easily expressed. highly personal, hard to formalize and difficult to comunicate to thers
+- Explicit knowledge: Is formal and systematic. It can be easily communicated and shared
+- Definition of knowledge
+  - Documents, repos, designs, anything that gives contextual information that gives out a competitive advantage.
+  - They take into configuration assets, computers, systems, people, organization culture
+
+### Knowledge Leakage
+- Intentional
+  - Disclosure of knowledge
+  - Copy of organizational sensitive content
+- Unintentional 
+  - Accidental emails to recipeints
+  - Loss of staff
+  - Outsourcing/joint ventures
+  - Employee oversight
+  - Poor business process
+  - Risky behaviors
+    - Posting confidential details on social media
+    - Click on phishing emails URLs unwittingly and download attachments from unknown sources
+    - Connecting to open WiFi networks
+    - Selection of poor security controls or bypassing of controls
+- Focuses on confidentiality out of the three
+
+
+### Knowledge Leakage Risk
+- Measure of the extent to which an organziation is threatened b a potential knowledge leak circumstance or event, and typically in a function of
+  - Adverse impacts sthat would arise if the KL circumstance occurs, in dollars and 
+  - Likelihood of the occurance
+
+### Knowledge Leakage - Multidimensional Problem
+- Human Dimension - most important
+  - Personal context
+  - Social context
+- Organizational Dimension
+  - Environmnetal context
+  - Organizational context
+- Technical Dimension
+  - Device context
+  - Technical context
+
+
+---
+
 
 ## Concepts
 ### CIA 
+- Confidentiality
+- Integrity
+- Availability
+- Additional
+  - Authenticity
+  - Auditability 
+  - Access control
+  - Privacy
+
 
 ### Australian Privacy Principles 
 See markdown document outlining the APP. 
@@ -265,21 +413,29 @@ See markdown document outlining the APP.
   - You need often need security to have privacy 
 
 
-### Threats, Vulnerabilities, Risks
+### Assets, Threats, Vulnerabilities, Risks
 - ![](img/tvr.png)
+- Assets
+  - Something of value
 - Threats
-  - Can't be controlled and need to be identified 
+  - Can't be controlled and need to be identified
+  - Has potential to compromise your asset 
 - Vulnerabilities
   - Can be treated
   - Weaknesses to be identified 
+  - The weakest links, things that can compromise our assets
   - Proactive measures should be taken
 - Risks
+  - Something that can go wrong
   - Can be mitigated or managed
   - Risk assessment -> Identify critical assets
   - Asset that has a vulnerability to be exploited by a threat, in consequence and likelihood
 
+`Asset + Threat + Vulnerability = Risk`
+
 ### The Definition of Infosec
 - Infosec: Protecting information systems against misuse and interference from external parties 
+  - Defending information: Preventing unauthorized access, use, disclosure, disruption, modifiaction, inspection, recording and/or disruption of information
 - It happens constantly that data, information and knowledge are leaked to competitors
 - Lack of focus on infosec and knowledge leakage 
 - "Building systems to remain dependable in the face of malice, error or mischance" - Ross Anderson
@@ -314,7 +470,17 @@ See markdown document outlining the APP.
 - Verify identity
 - Data authentication: Ensure that the data originates from claimed senders 
 
-### SETA - Security Training and Awareness
+### Cryptography and Encryptions
+- Cryptography: Enables secure information transactions ebtween intended sender and intended recipient
+
+### Security through Obscurity
+
+
+### SETA - Security Education Training and Awareness
+- Foster a culture of security
+- Influence the security behaviors of employees
+- Draws its aims and objectives from security policy and security strategy
+- Once an organization has conducted a comprehensive security risk assessment, a critical aspect of crafting the risk mitigation strategy is to determine how to use SETA to complement formal controls and technical controls.
 
 ### Risk Management
 ![](img/srm.png)
@@ -324,6 +490,7 @@ See markdown document outlining the APP.
   - Impact vs Likelihood
     - Impact in dollars and cents 
     - Likelihood of the threat manifesting
+- Response
 - Control
   - For each threat create list of control ideas
   - Formal: Risk management, Policies, Access Control
@@ -337,7 +504,6 @@ See markdown document outlining the APP.
         - Business continuity plan
       - understand and accept (acceptance)
       - Chosen depending on if the vulnerability exists, when attacker's cost is less than potential gain, when potential loss is substaintial, when cost of control \< cost of impact
-      - 
   - Informal: SETA
   - Technical
   
