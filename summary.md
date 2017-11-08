@@ -32,6 +32,7 @@
     - [Customer privacy and security: Issues for business](#customer-privacy-and-security-issues-for-business)
     - [Trade offs between privacy and security and convenience](#trade-offs-between-privacy-and-security-and-convenience)
     - [How do you get people to give a shit about infosec?](#how-do-you-get-people-to-give-a-shit-about-infosec)
+    - ["I don't have anything to hide!"](#i-dont-have-anything-to-hide)
   - [Privacy in the Modern World and Differential Privacy](#privacy-in-the-modern-world-and-differential-privacy)
     - [Security through Obscurity](#security-through-obscurity)
     - [Differential Privacy](#differential-privacy)
@@ -49,6 +50,7 @@
     - [Knowledge Leakage - Multidimensional Problem](#knowledge-leakage---multidimensional-problem)
   - [Concepts](#concepts)
     - [CIA](#cia)
+      - [The Additional Security Principles](#the-additional-security-principles)
     - [Australian Privacy Principles](#australian-privacy-principles)
     - [Privacy, Anonymity, and Security](#privacy-anonymity-and-security)
     - [Assets, Threats, Vulnerabilities, Risks](#assets-threats-vulnerabilities-risks)
@@ -65,6 +67,8 @@
       - [Risk Management](#risk-management)
       - [Infosec Policy](#infosec-policy)
       - [Infosec Security Strategy](#infosec-security-strategy)
+    - [Defense in Depth](#defense-in-depth)
+    - [Taxonomy of Privacy](#taxonomy-of-privacy)
   - [Case Studies](#case-studies)
     - [Election Hacking](#election-hacking)
     - [San Bernadino](#san-bernadino)
@@ -124,7 +128,6 @@ We want to protect knowledge as a competitive advantage. We safeguard informatio
 - Physical barriers/protection
 - Legal protection
 - Encryption
-
 
 ### The Security Threat Landscape
 12 categories 
@@ -294,14 +297,27 @@ What clashes with the 0 message?
     - Suspectible to MITM
   - RSA
     - If public key is fucked, everything else is fucked 
+    - But we don't really much on this when we follow best practices of getting higher primes - it is computationally infeasible to break those
   - They are possible to exchange over SSL/TLS
 - Desirable Properties of Secret Messages
   - Resistant to MITM
-  - Forward secrecy: When the current key is compromised, past communications are secure
-  - Future secrecy: When the current key is compromised, future communication stays secure 
-  - Achievable via the use of ephemeral keys 
+  - **Forward secrecy**: When the current key is compromised, past communications are secure
+  - **Future secrecy**: When the current key is compromised, future communication stays secure 
+  - In general this is achievable via the use of ephemeral keys 
 - Ratcheting Protocol
   - Diffie Hellman plus long term memory of public key exchange when contacts first met
+- Extended Triple Diffie Hellman Protocol (Signal)
+  - https://www.reddit.com/r/netsec/comments/5bg3f4/x3dh_extended_triple_diffiehellman_key_exchange/
+  - What Signal uses 
+  - This is the key agreement protocol that Signal uses. It uses three Diffie-Hellman key agreement phases in a way that allows users to communicate securely, providing both confidentiality and integrity & authenticity, without giving away that they communicated (plausible deniability), or allowing an attacker to recover plaintext messages from previously captured encrypted communications even if they later steal the users' private key materials (forward secrecy). It is also designed in a way that prevents the server from compromising communications between the user - the worst the server can do is refuse to cooperate with the key exchange and communications by not sending messages.
+  - A key feature that is important to Signal's communications model is that this exchange is asynchronous, i.e. it can begin while one of the users is not connected to the Signal network, and later complete when the other user comes online, even if the other user has since gone offline.
+  - Signal uses 3DH + hash ratcheting + optional rekeying with 3DH.
+  - As a recipient, you have a list of signed asymmetric ephemeral keys stored on your behalf by your server.
+  - The person contacting you requests an ephemeral public key for you, and verifies the signature. He computes key exchanges between [his permanent private key + your ephemeral public key], [his ephemeral private key + your ephemeral public key] and [his ephemeral private key + your permanent public key].
+  - The three outputs are mixed to generate a seed. This seed is iterated (deleting past seed values) in a PFS manner using the hash ratchet for every message.
+  - Rekeying mixes the 3DH key exchange outputs with the existing iterated seed value.
+  - Both people know they're talking to the right person because they got the same output from all three key exchanges and thus both knows the respective private keys from the long term keypairs and ephemeral keys.
+  - And yet a falsified conversation is indistinguishable from a real one to somebody without ALL the keys!
 
 ## Guest Lecture: Digital Privacy Rights, Then, Now and In The Future 
 ### Downsides to Encryption
@@ -406,6 +422,18 @@ What clashes with the 0 message?
 - Better UX 
 - Streamlined technicalities and procedures that easily blend to everyday life
 - Good support
+
+### "I don't have anything to hide!"
+In a sense, you don't need your boss to know why and where you go out with your workmates. Your company shouldn't know why you are in a meeting with the VP of another company even though you are just friends. Your corporate competitors doesn't need to know who you're lobbying and how long. Your insurance company shouldn't recalculate your premiums from knowing how your activity fares.
+
+People think that if they only engage in legal activity, there's nothing they should worry about. 
+
+"But I value national security more if it means sacrifice of my privacy"
+
+"If they scrape our data, they won't even really see it until something interesting happens anyway, no privacy breach happens to until perhaps a few trusted government officials!"
+
+
+
 
 ## Privacy in the Modern World and Differential Privacy 
 ### Security through Obscurity 
@@ -544,7 +572,29 @@ Truth = (x-1/4) * 2
   - Auditability 
   - Access control
   - Privacy
+  - Nonrepudiation
 
+#### The Additional Security Principles
+Some of them are already covered by the CIA 
+
+- Accountability
+- Assurance
+- Reliability
+- Effectiveness
+- Efficiency
+- Compliance
+- Utility
+- Posession/Control
+- Authorization
+- Awareness
+- Access
+- Identification
+- Accuracy
+- Administration
+- Information Classification
+- Anonymity
+- Audit
+- Safety
 
 ### Australian Privacy Principles 
 See markdown document outlining the APP. 
@@ -697,6 +747,61 @@ Future course of security actions to be enacted upon using a range of formal, in
 
 - Prescriptive: Involves decision making abaout a future course of action
 - Multi-faceted and incorporating tradeoffs
+
+
+### Defense in Depth
+Basically means of control that provides defensive measures 
+
+- Physical controls
+- Technical controls
+- Administrative controls
+
+**Tools for DiD**
+
+* Anti virus software
+* Authentication and password security
+* Biometrics
+* Demilitarized zones (DMZ)
+* Data-centric security
+* Encryption
+* Firewalls (hardware or software)
+* Hashing passwords
+* Intrusion detection systems (IDS)
+* Logging and auditing
+* Multi-factor authentication
+* Vulnerability scanners
+* Physical security (e.g. deadbolt locks)
+* Timed access control
+* Internet Security Awareness Training
+* Virtual private network (VPN)
+* Sandboxing
+* Intrusion Protection System (IPS)
+
+
+### Taxonomy of Privacy
+Extra information from Solove, 2008
+
+- Information collection
+  - Surveillance
+  - Interrogation
+- Information processing
+  - Aggregation
+  - Identification
+  - Insecurity 
+  - secondary use
+  - Exclusion
+- Information dissemination
+  - Breach of confidentiality
+  - Disclosure
+  - Exposure
+  - Increased accessibility
+  - Blackmail
+  - Appropriation
+  - Distortion
+- Invasion
+  - Intrusion
+  - Decisional interference
+
 
 ## Case Studies
 ### Election Hacking
