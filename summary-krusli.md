@@ -187,12 +187,132 @@ Set of managerial and technical controls to protect information resources.
 
 ## Cryptography
 - "art of writing and solving codes" - dictionary definition
-- encryption: turning data into "gibberish"; decryption: turning the "gibberish" back into data
+- sending messages that are secret from everyone but the intended recipient
+- encryption: "hiding" the message for sending, so nobody else can understand it
+- decryption: "un-hiding" and recovering the message
 - enables secure information transactions through encryption and decryption
+- ref/week4
 
-### Intro
+### Debates, legal controversies
+- E2E encryption, backdoors
+- electronic voting (the "paperless option")
+- privacy and big data
 
-### RSA
+### Secret-key cryptography
+- sender and receiver had to agree on the secret key in advance - had to "meet" somehow
+- encrypting and decrypting uses the same key
+  - symmetric
+- still used - e.g. AES
+
+### Public-key cryptography
+- asymmetric
+- receiver generates 2 keys:
+  - public key *e* for encrypting
+  - private key *d* for decrypting
+- receiver publicises the public key *e*
+  - people encrypt messages sent to the receiver using *e*
+- receiver keeps private key *d* secret
+  - to decrypt messages
+
+#### RSA - maths
+- receiver: 2 large primes *p* and *q* (~300 digits long)
+  - multiplies *p* and *q*  to get *N* = *p* * *q*
+  - generate public key *e* (almost any *e* will do)
+  - publicises *(N, e)* - her full public key
+- encrypting a message
+  - compute *m<sup>e</sup> mod N*
+- receiver can decrypt because she knows *p* and *q*
+  - nobody else can factorise *N* - the computation takes too long
+
+#### Even more details
+- *e* will do as long as it is coprime to (p - 1)(q - 1)
+- message: padding with a carefully chosen random string r
+  - compute (m || r)<sup>e</sup> mod N
+  - 2 identical messages will look different -> can't tell if it's the same message
+- receiver can decrypt
+  - Wikipedia page on RSA + Euler-Fermat Theorem
+  - nobody else can factorise N: too long
+    - strictly speaking, breaking RSA has never been shown to be as difficult as factorising N, but
+    - no one has found a faster way to do it either
+- Chinese remainder theorem - more efficient decryption
+- how long does e need to be?
+  - not very long - padding m witih random junk ensures that m<sup>e</sup> mod N is always many times larger than N
+  - e = 1 + 2<sup>16</sup> = 65537 is popular because it makes m<sup>e</sup> easy to compute quickly
+  - subtle reasons why small e is insecure
+  - https://crypto.stanford.edu/~dabo/abstracts/RSAattack-survey.html
+
+#### Good for?
+- exchanging a secret key for secret-key cryptography
+  - sender
+    - generate a secret key
+    - encrypts a message with the secret key
+    - encryptes the secret key with the receiver's public key
+    - sends the encrypted message and the encrypted key
+  - receiver
+    - uses private key to decrypt the secret key
+    - uses the secret key to decrypt the message
+  - almost but not quite how SSL/TLS works
+
+#### TLS
+- TLS
+  - encrypts communication
+  - adds secrecy (confidentiality) and integrity
+  - checks the public key of the website you are visiting: if it does belong to the organisation that owns this URL
+- digital signatures: digital analog of pen signatures
+  - but very different implementation
+  - RSA signature: computed using the private key
+    - and verifiable using the public key -> verify if private key holder *did* sign the message
+    - *d*, computed from *p* and *q*
+      - totient: lcm of (p-1) and (q-1)
+      - d: modular multiplicative inverse of e (mod totient)
+        - d x e mod totient = 1
+    - signing: holder of private key has a value d with the property (x<sup>e<sup>d</sup></sup> = x (mod N))
+      - getting at d is equivalent to factorising N
+      - verify signature: S<sup>e</sup> = Pad(Hash(M)) (mod N)
+        - M: message
+        - N: public key component
+- built-in certs in PCs: root certs
+  - => chain of trust
+    - can break down if: CA tricked into issuing fradulent certificates, CAs being compromised
+- example: Western Australia Electoral Commission
+  - cert does not belong to them, but a cloud service provider
+  - domain name on the certificate does not match
+    - domain name of the EC is in "Certificate Subject Alt Name"
+  - this was with good intentions - the EC saw the ABS DDoS attack and bought DDNS protection from a 3rd party
+    - the 3rd party interposes (posing in between every connection from the voter to the EC) on all the connections
+
+### Internet voting
+#### Picture
+- system: voters voting at PCs, encrypted -> sent to EC server -> election outcome
+- what's wrong?
+  - vote multiple times
+  - manipulation at the EC server
+  - can vote for someone else by pretending to be someone else
+  - changing their vote right on their own PC
+  - less privacy: someone at the EC might be able to trace the vote
+
+#### Security properties required
+- verifiability: no one can manipulate the output
+  - only eligible voters vote, only once
+  - voters should get evidence that their vote was cast as intended and counted as cast
+  - everyone gets evidence votes were properly tallied
+- privacy: coercers cannot manipulate the inputs e.g. by blackmail
+- achieving both is hard, especially for remote voting
+
+#### FREAK (factoring RSA export keys)
+- 1990s: US gov't restricted export of strong crypto, in particular RSA w/ more than 512-bit keys
+  - servers and clients in US can use strong RSA params
+  - software made outside US not bound by this restriction
+  - software produced in the US but exported outside was restricted to this "export grade" crypto
+- lots of servers (and client) maintained option to use "export grade" crypto in case they have to communicate with a restricted client/server
+  - many still do
+- problem with 512-bit RSA: only costs $100 to break running overnight on Amazon EC2 cloud
+- how it works
+  - client: "I'd like to use 1024 or 2048-bit RSA"
+  - attacker MITM: "I'd like to use 512-bit RSA"
+  - server response: OK, here's my 512-bit RSA-EXP key (with valid cert chain)
+  - buggy client accepts 512-bit key and uses it to encrypt comms
+  - attacker uses factored 512-bit key to control SSL/TLS session
 
 ### Diffie-Hellman
 

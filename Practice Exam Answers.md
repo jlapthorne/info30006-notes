@@ -16,6 +16,7 @@
   - https://technology.berkeley.edu/archive/security#reliability5
   - reliability of the information store/service
   - do you have backups? funding? network infra? security? physical environment for information and services?
+- see Week 11 lecture for the actual answers from this subject
 
 ### Q2 - security threats (5) + example
 - human error
