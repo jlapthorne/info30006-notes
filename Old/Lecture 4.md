@@ -30,6 +30,7 @@
 	- very different implementation
 	- RSA *signature*: something who the person who holds the private key can compute on the message
 		- and then can use the public key to verify that the person with the private key signed the message
+	- https://crypto.stackexchange.com/questions/9896/how-does-rsa-signature-verification-work
 	- built-in certificates in our PCs: root certificates
 		- Symantec signs the statement that a website’s public key is as such
 			- certificate
