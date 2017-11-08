@@ -8,25 +8,30 @@
 - [Infosec](#infosec)
   - [Course Outline](#course-outline)
   - [TOC](#toc)
-  - [Guest Lecture on Infosec](#guest-lecture-on-infosec)
+  - [Guest Lecture on Infosec - Key Points](#guest-lecture-on-infosec---key-points)
   - [Introduction to Security and Privacy](#introduction-to-security-and-privacy)
     - [What is Infosec](#what-is-infosec)
-    - [Threats to Infosec](#threats-to-infosec)
     - [The Security Threat Landscape](#the-security-threat-landscape)
   - [Managing Security Risks](#managing-security-risks)
   - [Symmetric and Asymmetric Cryptography](#symmetric-and-asymmetric-cryptography)
     - [RSA](#rsa)
-    - [TLS](#tls)
+    - [TLS and CAs](#tls-and-cas)
     - [Example: Maths and Democracy: Internet Voting](#example-maths-and-democracy-internet-voting)
     - [FREAK Attacks](#freak-attacks)
     - [End To End Encryption](#end-to-end-encryption)
   - [Digital Signatures and Application of Cryptography](#digital-signatures-and-application-of-cryptography)
   - [Guest Lecture: Digital Privacy Rights, Then, Now and In The Future](#guest-lecture-digital-privacy-rights-then-now-and-in-the-future)
+    - [Downsides to Encryption](#downsides-to-encryption)
+    - [BDA and AI](#bda-and-ai)
   - [Digital Footprints and Privacy](#digital-footprints-and-privacy)
     - [Digital Footprints](#digital-footprints)
     - [Being Truly Anonymous is Hard](#being-truly-anonymous-is-hard)
     - [Dealing with Anonymity Issues](#dealing-with-anonymity-issues)
     - [Software to use](#software-to-use)
+    - [Dollar vs Data Experiment](#dollar-vs-data-experiment)
+    - [Customer privacy and security: Issues for business](#customer-privacy-and-security-issues-for-business)
+    - [Trade offs between privacy and security and convenience](#trade-offs-between-privacy-and-security-and-convenience)
+    - [How do you get people to give a shit about infosec?](#how-do-you-get-people-to-give-a-shit-about-infosec)
   - [Privacy in the Modern World and Differential Privacy](#privacy-in-the-modern-world-and-differential-privacy)
     - [Security through Obscurity](#security-through-obscurity)
     - [Differential Privacy](#differential-privacy)
@@ -53,9 +58,13 @@
     - [Privacy and Anonymity](#privacy-and-anonymity)
     - [Authentication](#authentication)
     - [Cryptography and Encryptions](#cryptography-and-encryptions)
+    - [Threats to Infosec](#threats-to-infosec)
     - [Security through Obscurity](#security-through-obscurity)
-    - [SETA - Security Education Training and Awareness](#seta---security-education-training-and-awareness)
-    - [Risk Management](#risk-management)
+    - [Infosec Controls](#infosec-controls)
+      - [SETA - Security Education Training and Awareness](#seta---security-education-training-and-awareness)
+      - [Risk Management](#risk-management)
+      - [Infosec Policy](#infosec-policy)
+      - [Infosec Security Strategy](#infosec-security-strategy)
   - [Case Studies](#case-studies)
     - [Election Hacking](#election-hacking)
     - [San Bernadino](#san-bernadino)
@@ -69,7 +78,42 @@
 
 <!-- /TOC -->
 
-## Guest Lecture on Infosec 
+## Guest Lecture on Infosec - Key Points 
+- Legislators don't really hear from governments or the lobbylists - such as for the argument on getting security backdoors
+- The government *avoids* using actual technical terms. - This allows them changing what they do
+- The different committees have different infomration or knowledge of IT 
+  - only a handful actually knows technical information, but they're stuck on commitees who can't make decisions
+- In the US, Telecoms have to get a backdoor - but this hasn't been passed in tech companies
+  - However, the US can collect data offshore or by satellite as they're not bound by the law 
+- There's laws for messaging apps to be able to give backdoors or metadata
+- The first attack of Paris: The most important encryption in the attack was the HTTPS used to encrypt the transaction with Airbnb
+  - OPSEC in these operations are very basic, but...
+  - They speak dialects of Arabics with hardly any translators for
+  - For the time the data came out, there are only 2 Halsa translators in the entire NSA
+  - If you're not gonna fix the translation side, fix that before you break comms - the human side is the bigger issue than encryption itself
+- Election hacking: Elements around invading people's private information - what has and what hasn't actually happened, and what opportunities there are
+  - Stealing emails: Even under 702, the US spies on other political parties. NSA and CIA worked together to hack the smartphones of Mexican parties. The US does hack political entities to figure out what's going on.
+  - Fake news: Sort of crazy; Russians took up stories and made conspiracy stories (Pizzagate), and would send these. Congress is now looking at whether using Facebook, Russians sent emails to depress people in states that would win for Trump (as of writing these notes - Facebook and Twitter started releasing information of which advertisements were backed by Russian actors)
+    - But only 0.1% of this malicious. The only way you get to this number is distinguishing Russians, Bernie voters, or reps
+    - The debate is wheter the Russians or Republicans use American social media for propaganda
+    - Facebook has incredible forensics of this stuff, tracking intelligences almost like intelligences themselves 
+- How you would hack an election
+  - Overreliance to analytics
+    - You have to do things to do x y and z to win a state
+    - But Hillary ignored it
+    - The Hillary blue backpack: She relies in analytics too much to ignore what's in front of them
+  - Mess with their analytics and monitoring
+  - Interrupt the feedback loop
+- How easy is it to hack US election machines?
+  - It's true that we don't know if they machines were hacked, but the systems were not designed to provide good evidence if anything happens
+  - The refusal to cooperate with whoever warns the victims are also a big question of trust.
+- Why won't encryption be illegal?
+  - At some point, if they realize they have the good society using crypto, it's preferable for everyone overseas to run it properly
+- Is there a way to make decision makers make good decisions?
+  -  The people who make decisions are by and large intelligence committees - and that's intoxicating
+  - For most of them, they're intoxicated and believe the secrets are always true
+  - Attitude of security about how stuff works and why gets supressed when we talk about crypto - but transparency about what happened, why and what went wrong is shunted in MILSEC, but it's an ordinary information
+  - This attitude hasn't transfered across 
 
 ## Introduction to Security and Privacy
 ### What is Infosec 
@@ -81,22 +125,6 @@ We want to protect knowledge as a competitive advantage. We safeguard informatio
 - Legal protection
 - Encryption
 
-### Threats to Infosec
-
-Categories | Examples
--|-
-Acts of human error or failure | Accidents, employee mistakes. Human error is all about mistakes in putting in information
-Compromises to intellectual property | Piracy, copyright infringement. Property or works which are intangible and requires legal protection. It's your responsibility to put the copyright on things. 
-Deliberate acts of espionage or tresspass | Hiring someone from the competitor to leak trade secrets, unauthorized access and/or data collection, grey/black hat and shoulder surfing, competitive or industrial espionage
-Deliberate acts of information retrieval and extortion |  Steals information and demands money or compensation for its return or nondisclosue
-Deliberate acts of sabotage or vandalism | Political, protests, hacktivists, nation state hackers. 
-Deliberate acts of theft | Compromising information and stealing resources, trade secrets, physical theft, or intellectual property
-Deliberate software attacks | Malicious attacks, such as viruses, worms, backdoors, etc
-Forces of nature | Uncontrollable events and natural disasters
-Deviation of service | Internet service, communications, and power irregularities
-Hardware Failure | Hardware screws up and shit
-Software Failure | Software commits suicide
-Techincal obsolences | Old stuff
 
 ### The Security Threat Landscape
 12 categories 
@@ -121,8 +149,41 @@ Threats can't be controlled, and you can't do much to identify them. In order to
 - asymmetric: public-private key cryptography
 
 ### RSA
+- receiver thinks of 2 large numbers p, q
+	- about 300 digits long
+	- she multiplies them together to get N=pq
+	- she generates the public key e (almost any e will do)
+	- she publicises (N, e). This is her full public key
+- to encrypt message m, compute
+	- m<sup>e</sup> mod N
+	- (this means take the remainder when m<sup>e</sup> is divided by N)
+- the receiver can decrypt because she knows p and q
+	- Euler-Fermat Theorem
+	- nobody else can factorise N. The computation takes too long
+- what if it’s a yes/no for elections?
+	- w/o padding, identical input messages result in identical outputs (thus the meaning is not properly encrypted)
+	- to encrypt message m,
+		- pad m with a carefully chosen random string r
+			- make 2 identical messages look different so the hacker can’t tell they’re the same message
+		- compute (m || r)<sup>e</sup> mod N
 
-### TLS 
+### TLS and CAs
+- Transport Layer Security 
+  - Add integrity and pepper with potential secrecy 
+  - Check the public key of the website you're talking to, to check if that public key actually does belong to that domain 
+- CAs and Root Certificates 
+	- RSA *signature*: something who the person who holds the private key can compute on the message
+		- and then can use the public key to verify that the person with the private key signed the message
+	- built-in certificates in our PCs: root certificates
+		- CA signs the statement that a website’s public key is as such
+- How the Chain of Trust breaks 
+  - CAs trickeed into issuing certificates
+  - CAs being compromised
+- Example of bad CA choice: WA Electoral Commission
+  - CA isn't actually the electoral commission's, but some cloud service
+  - TLS certificate can be issued from one CA to many sites
+  - If domain name doesn't match, there's an error 
+  - CA Alt Name - allowance to use the same certificate for all these sites
 
 ### Example: Maths and Democracy: Internet Voting
 - in 2015, NSW ran a trial of an electronic voting system
@@ -198,6 +259,22 @@ Threats can't be controlled, and you can't do much to identify them. In order to
 
 
 ## Digital Signatures and Application of Cryptography 
+```
+(m * a + b) mod c = d
+let k be any integer
+k * c + d = m * a + b
+m = (k * c + d - b)/a
+
+With one m, we can try to calculate k (the hash) to get different messages 
+
+Now suppose  a = 1 
+What clashes with the 0 message?
+
+- Both m = c and m = 0 
+- First because everything falls through c as it is divided by c
+
+```
+
 - "Mathematical link between a message and a public key"
 - Sign through private keys, and verify through public keys
   - CAs issue some digital signatures on some public keys
@@ -227,6 +304,28 @@ Threats can't be controlled, and you can't do much to identify them. In order to
   - Diffie Hellman plus long term memory of public key exchange when contacts first met
 
 ## Guest Lecture: Digital Privacy Rights, Then, Now and In The Future 
+### Downsides to Encryption
+- There are very few downsides to HTTPS unless if you need to perform surveillance. 
+- We don't necessary think it's good for people to monitor what we are doing
+- During the San Bernadino case, the iPhone cracking was just a stage play to win the debate; they got the data from unencrypted backups anyway, they just wanted to try win the case.
+
+### BDA and AI
+- How much of AI hype is real, and how much is just speculation?
+- False positives in neural network analysis of bail settings 
+  - Even they have biases to races...
+  - ML algorithms are making it worse these days
+  - The problems come from
+    - Algorithms being trained on broken data - you're training the machine to be racist
+    - The minute variable bias: If you have a ML system to predict something would be true in the future. When there is a true model probability, the things that actually drive it are usually not accessible to the model. 
+    - False correlation: "Driving at night is dangerous" because of all the data about crashes at night.
+- Equal Opportunity Machine Learning - how to correct out biases on known groups of people with biases 
+  - You need a list of the protected categories of your data - gender, age, ethnicity...
+  - It's still in research, but once you're out in the world and applying ML, you have to know the bias of the data (and hence your system) and apply measures to ignore these biasing data.
+- Examples:
+  - The Public School debacle
+    - Algorithms that fire teacher based on incentives of passing kids
+    - Schools just teach things that they will be examined on and nothing elses. Teachers would also cheat. 
+  - PageRank: Figuring out which pages are authoritive
 
 ## Digital Footprints and Privacy 
 - Invasion of Privacy can be Episodic or Systemic
@@ -280,6 +379,34 @@ Threats can't be controlled, and you can't do much to identify them. In order to
 - Authenticators
 - Yubikeys (sans the PGP support - because it's currently fucked)
 
+### Dollar vs Data Experiment
+- How much is your personal private information worth?
+- How much is your personal data worth? It's actually pretty god damn worthless.
+  - Packages of data are more important if it has very identifiable data 
+
+### Customer privacy and security: Issues for business
+- People want to feel their data is secure
+- But it may be too clunky for the average user, which put them off.
+- Even though data is kept appropriate, is it secure enough for privacy?
+  - It's not necessarily that privacy is worse, but the amount of times that it happens is what matters
+- Perhaps the most direct threat to maintain consumer trust is negative personal experience. Security breaches appear to be more common among the most intensive internet using households.
+
+### Trade offs between privacy and security and convenience 
+- McKinsey - auditing comapany
+- 30 percent prioritize case and convenience over security
+- Want basic level operating behind the scenes but say 'having access to account information without the need to enter a password is attractive or very attractive'
+- People hate OTPs
+- Login credeintials should be the same - SSO
+- Better UX matters
+- Inconsistent design, poor error messaging, clunky communications, site slowness or unavailability makes it less ppealing to the end usser to accept security
+- Privacy policy: A company's privacy policy describes how it gathers, uses, discloses and manages a consumer's information
+
+### How do you get people to give a shit about infosec?
+- Negative experience to launch them to give a fuck
+- Better UX 
+- Streamlined technicalities and procedures that easily blend to everyday life
+- Good support
+
 ## Privacy in the Modern World and Differential Privacy 
 ### Security through Obscurity 
 - "You can't be attacked when people don't know you exist"
@@ -297,12 +424,31 @@ The aim is to add random noise to distort data.
 
 Baseline principle: Flip a coin. If it's heads, answer honestly. If it's tails, flip it again and answer depending if it's heads or tails.
 
+
+```
+        Y    Say No
+Truth
+Y       3/4  1/4
+N       1/4  3/4
+
+Suppose x says yes, 1-x says no
+Truth = (x-1/4) * 2
+      = 2x - 1/2
+
+
+```
+- We're trying to hide information of that one person, by arguing that if the person is added to the database, it's not going to change anything to the data
+- We add randomness to the data to make sure that it doesn't change very much when real responses are taken out to preserve some privacy
+- In particular, this allows us to protect queries against *one* individual in this definition
+
+
 ## The Security Audit 
 - Patch and update
 - Strong, unique passwords using password managers  
 - Encrypt data at rest
 - Encrypt data in transit
 - Enable MFA
+
 
 ## Industrial Perspectives of Infosec 
 
@@ -417,9 +563,11 @@ See markdown document outlining the APP.
 - ![](img/tvr.png)
 - Assets
   - Something of value
+  - People, property, information
 - Threats
   - Can't be controlled and need to be identified
   - Has potential to compromise your asset 
+  - Anything that can exploit a vulnerability, intentionally or accidentally, and obtain, damage or destroy the asset
 - Vulnerabilities
   - Can be treated
   - Weaknesses to be identified 
@@ -430,12 +578,11 @@ See markdown document outlining the APP.
   - Can be mitigated or managed
   - Risk assessment -> Identify critical assets
   - Asset that has a vulnerability to be exploited by a threat, in consequence and likelihood
-
-`Asset + Threat + Vulnerability = Risk`
+  - `Asset + Threat + Vulnerability = Risk`
 
 ### The Definition of Infosec
 - Infosec: Protecting information systems against misuse and interference from external parties 
-  - Defending information: Preventing unauthorized access, use, disclosure, disruption, modifiaction, inspection, recording and/or disruption of information
+  - Preventing unauthorized access, use, disclosure, disruption, modifiaction, inspection, recording and/or disruption of information
 - It happens constantly that data, information and knowledge are leaked to competitors
 - Lack of focus on infosec and knowledge leakage 
 - "Building systems to remain dependable in the face of malice, error or mischance" - Ross Anderson
@@ -461,6 +608,8 @@ See markdown document outlining the APP.
 ### Privacy and Anonymity
 - Privacy
   - Use/disclose a person's data according to a set of rules
+  - Through the use of encryption and decryption, among other means
+  - The objective is  safeguarding personal data
 - Anonymity
   - Keep identity of a protocol participant secret 
 - Integrity
@@ -471,42 +620,83 @@ See markdown document outlining the APP.
 - Data authentication: Ensure that the data originates from claimed senders 
 
 ### Cryptography and Encryptions
-- Cryptography: Enables secure information transactions ebtween intended sender and intended recipient
+- Cryptography: Enables secure information transactions between intended sender and intended recipient
+
+### Threats to Infosec 
+Categories | Examples
+-|-
+Acts of human error or failure | Accidents, employee mistakes. Human error is all about mistakes in putting in or accessing information
+Compromises to intellectual property | Piracy, copyright infringement. Property or works which are intangible and requires legal protection. It's your responsibility to put the copyright on things. 
+Deliberate acts of espionage or tresspass | Hiring someone from the competitor to leak trade secrets, unauthorized access and/or data collection, grey/black hat and shoulder surfing, competitive or industrial espionage. Unauthorized access/data collection
+Deliberate acts of information retrieval and extortion |  Steals information and demands money or compensation for its return or nondisclosue
+Deliberate acts of sabotage or vandalism | Political, protests, hacktivists, nation state hackers. 
+Deliberate acts of theft | Compromising information and stealing resources, trade secrets, physical theft, or intellectual property
+Deliberate software attacks | Malicious attacks, such as viruses, worms, backdoors, etc
+Forces of nature | Uncontrollable events and natural disasters
+Deviation of service | Internet service, communications, and power irregularities
+Hardware Failure | Hardware screws up and shit
+Software Failure | Software commits suicide
+Techincal obsolences | Old stuff
+
 
 ### Security through Obscurity
 
 
-### SETA - Security Education Training and Awareness
+### Infosec Controls
+#### SETA - Security Education Training and Awareness
 - Foster a culture of security
 - Influence the security behaviors of employees
 - Draws its aims and objectives from security policy and security strategy
 - Once an organization has conducted a comprehensive security risk assessment, a critical aspect of crafting the risk mitigation strategy is to determine how to use SETA to complement formal controls and technical controls.
 
-### Risk Management
+
+#### Risk Management
 ![](img/srm.png)
-- Identify
-- Assess
+- **Identify**
+  - Examine current security situation
+  - What's the assets we want to protect
+  - Vulnerability analysis
+  - May have residual risks: Risk remains on asset even after existing controls are applied
+- **Assess**
   - Relative risk of each vulnerability
+    - Quantitative and qualitative methods
   - Impact vs Likelihood
-    - Impact in dollars and cents 
-    - Likelihood of the threat manifesting
-- Response
-- Control
-  - For each threat create list of control ideas
+    - **Impact** in dollars and cents 
+      - Depends on the risk, not the asset 
+      - e.g. cost of confidentiality attack is different to an availability attack
+    - **Likelihood** of the threat manifesting
+      - Can be calculated from a number of sources (past incidents, experience, simulations, expert heuristics)
+- **Response**
+  - What you actually do when it happens
+- **Control**
+  - For each threat, create list of control ideas
   - Formal: Risk management, Policies, Access Control
-    - Acces control: Mandatory or discretionary. Can be based on authority in organization
-    - Control each risk by: 
-      - Safeguards (avoidance), 
-      - transfer the risk (transference), 
-      - reduce impact by incident response plans (mitigate) 
-        - Incident response
-        - Disaster recovery
+    - Access control: Mandatory or discretionary. Can be based on authority in organization, or based by role or task
+    - Control **strategies** - control each risk by: 
+      - Safeguards (**avoidance** - preferred approach), 
+      - transfer the risk (**transference**), 
+      - reduce impact by incident response plans (**mitigate**) 
+        - Incident response plan
+        - Disaster recovery plan
         - Business continuity plan
-      - understand and accept (acceptance)
-      - Chosen depending on if the vulnerability exists, when attacker's cost is less than potential gain, when potential loss is substaintial, when cost of control \< cost of impact
+      - understand and accept (**acceptance**)
+  - Risk control strategy chosen from
+    - Level of threat and value of asset
+    - If vulnerability exists and can be exploited
+    - When attacker costs are less than potential gain
+    - When potential loss is substantial
+    - When cost of control < cost of impact
   - Informal: SETA
   - Technical
-  
+
+#### Infosec Policy
+Course of action that conveys instructions to those who make decisions, take actions and perform other duties. They can be strategic level or operational level.
+
+#### Infosec Security Strategy 
+Future course of security actions to be enacted upon using a range of formal, informal and technological controls at a tactical and operational level tor educe security risk.
+
+- Prescriptive: Involves decision making abaout a future course of action
+- Multi-faceted and incorporating tradeoffs
 
 ## Case Studies
 ### Election Hacking
@@ -570,3 +760,22 @@ See markdown document outlining the APP.
   - Be sure you can dimension the nature and scope of the privacy intrusions
 - Be sure you can explain why privacy is important
 - Understand the barriers to IT anonymity. 
+
+```
+⠀⠀⠀⣴⣴⡤
+⠀⣠⠀⢿⠇⡇⠀⠀⠀⠀⠀⠀⠀⢰⢷⡗
+⠀⢶⢽⠿⣗⠀⠀⠀⠀⠀⠀⠀⠀⣼⡧⠂⠀⠀⣼⣷⡆
+⠀⠀⣾⢶⠐⣱⠀⠀⠀⠀⠀⣤⣜⣻⣧⣲⣦⠤⣧⣿⠶
+⠀⢀⣿⣿⣇⠀⠀⠀⠀⠀⠀⠛⠿⣿⣿⣷⣤⣄⡹⣿⣷
+⠀⢸⣿⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣿⣿⣿⣿⣿
+⠀⠿⠃⠈⠿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⠿⠿⠿
+
+⠀⢀⢀⡀⠀⢀⣤⠀⠀⠀⠀⠀⠀⡀⡀
+⠀⣿⡟⡇⠀⠭⡋⠅⠀⠀⠀⠀⢰⣟⢿
+⠀⣹⡌⠀⠀⣨⣾⣷⣄⠀⠀⠀⢈⠔⠌
+⠰⣷⣿⡀⢐⢿⣿⣿⢻⠀⠀⢠⣿⡿⡤⣴⠄⢀⣀⡀
+⠘⣿⣿⠂⠈⢸⣿⣿⣸⠀⠀⢘⣿⣿⣀⡠⣠⣺⣿⣷
+⠀⣿⣿⡆⠀⢸⣿⣿⣾⡇⠀⣿⣿⣿⣿⣿⣗⣻⡻⠿⠁
+⠀⣿⣿⡇⠀⢸⣿⣿⡇⠀⠀⠉⠉⠉⠉⠉⠉⠁
+⠀⠛⠛⠃⠀⠘⠛⠛⠃
+```
