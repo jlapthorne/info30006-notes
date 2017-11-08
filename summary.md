@@ -38,6 +38,11 @@
     - [Differential Privacy](#differential-privacy)
   - [The Security Audit](#the-security-audit)
   - [Industrial Perspectives of Infosec](#industrial-perspectives-of-infosec)
+    - [Political Influence in Infosec](#political-influence-in-infosec)
+    - [SCADA](#scada)
+    - [Gaining Information from People](#gaining-information-from-people)
+    - [Why do organizations run old software?](#why-do-organizations-run-old-software)
+    - [Realities](#realities)
   - [Security Analysis](#security-analysis)
     - [Basic Security Analysis](#basic-security-analysis)
     - [What security strategies are effective](#what-security-strategies-are-effective)
@@ -187,6 +192,13 @@ Threats can't be controlled, and you can't do much to identify them. In order to
   - TLS certificate can be issued from one CA to many sites
   - If domain name doesn't match, there's an error 
   - CA Alt Name - allowance to use the same certificate for all these sites
+- It's important to realize you don't know your root CAs
+  - If you work for an organization and evenif it's your machine, if you use BYOD or free wifi, you have an MBM setup which applies restrictions to your machine. But it will also install a certificate. That certificate is typically an intermediary that can sign certificates as anything else.
+  - Organizations do this all the time, and intelligence services do it (but get caught up when people audit the CA)
+  - Every government ask as it sees fit
+  - You can't set up constraint of how power can be used. Once it's out there, it's out there.
+  - What can these be misused for? What powers does it give that we won't have any control over?
+  - It's over once Pandora's Box is open
 
 ### Example: Maths and Democracy: Internet Voting
 - in 2015, NSW ran a trial of an electronic voting system
@@ -414,7 +426,8 @@ What clashes with the 0 message?
 - People hate OTPs
 - Login credeintials should be the same - SSO
 - Better UX matters
-- Inconsistent design, poor error messaging, clunky communications, site slowness or unavailability makes it less ppealing to the end usser to accept security
+- Inconsistent design, poor error messaging, clunky communications, site slowness or unavailability makes it less ppealing to the end user to accept security
+  - e.g. Keybase and Signal are perhaps the best applications of crypto we have these days that abstracts away all the hard parts of maintaining and signing PGP keys manually but they are still buggy, clunky, or slow to be widely accepted. 
 - Privacy policy: A company's privacy policy describes how it gathers, uses, discloses and manages a consumer's information
 
 ### How do you get people to give a shit about infosec?
@@ -448,7 +461,7 @@ People think that if they only engage in legal activity, there's nothing they sh
 ### Differential Privacy
 https://research.neustar.biz/2014/09/08/differential-privacy-the-basics/
 
-The aim is to add random noise to distort data. 
+The aim is to add random noise to distort data. The mechanism acts in such a way that tiny changes in the dataset does not change the output by much, so that any individual can claim they have never contributed to the dataset. This suggestion is plausible given that attackers only query the database through several specified means a limited number of times. 
 
 Baseline principle: Flip a coin. If it's heads, answer honestly. If it's tails, flip it again and answer depending if it's heads or tails.
 
@@ -468,7 +481,8 @@ Truth = (x-1/4) * 2
 - We're trying to hide information of that one person, by arguing that if the person is added to the database, it's not going to change anything to the data
 - We add randomness to the data to make sure that it doesn't change very much when real responses are taken out to preserve some privacy
 - In particular, this allows us to protect queries against *one* individual in this definition
-
+- We're trying to hide information of that one person, by arguing that if the person is added to the database, it's not going to change anything to the data
+- It attempts to shield the conclusion that *any one individual* is within a dataset even by comparing two distinct datasets, with or without that individual. 
 
 ## The Security Audit 
 - Patch and update
@@ -479,7 +493,71 @@ Truth = (x-1/4) * 2
 
 
 ## Industrial Perspectives of Infosec 
+- In those early days of the internet, there's nothing of sort of what we face these days in the internet. 
+- In infosec, think of how the adversary thinks
+- Universities may actually have more data to protect than companies, with bigger security implications
+- **IT Security is not just saying "no." It should empower people to protect their privacy.**
+  - Because aside from secure, you want people to get shit done, too. 
+  - People don't give a shit. If you stop people from getting things done, they will bypass you.
+  - We need to make things easy for people to use, otherwise infosec fights the user
+- Data sovereignity
+  - Equifax has so much data going out and no means of actually detecting what went wrong
+  - Data sovereignity is faced everyday, but we don't necessarily find it important
+- Day do day we don't give a shit - what degree of convenience you are willing to give up
 
+### Political Influence in Infosec 
+- The senior guys at kaspersky are arrested by the Russian Government, following people in the intelligence that talked to the FBI. The government isn't fond of Kaspersky. 
+- Congress takes so much money from lobbyists, who knows why the decisionn is made, and it's really just money.
+- You can get trade wars over software
+- Restrictions on exports of information is always a pain in the ass for years 
+- There's two legislations for crypto: Give us a backdoor or a way to break at the endpoint
+- Open source becomes the savior, but it comes back to inertia. People follow inertia rather than trying to get something kinky to run
+- Software is intangible, so it's hard to restrict people from using software
+  - e.g. the crypto wars
+  - PGP was first printed to Australia as a fucking book
+  - That was the only way to get PGP out of the US 
+- Restrictions on exports of information is always a pain in the ass for years 
+  - Legislations make it really hard for people to write legit crypto software
+  - The words are considered as munitions in technology
+- We are currently in an infosec cold war - we have proxy wars waged from breach of infosec protocols, such as the Iranian nuclear program hacks where they destabilize the centrifuge and blow it up while interrupting the feedback loop
+- The Vault 7 and Shadow Brokers story.
+  - If you look at the timing of what happened and you start inferring some stuff, you can draw interesting conclusions on who they may have been
+  - Who likes dumping stuff for targeted effect? It's almost to show dollars and spotlight
+  - Some of the attack kits left should not have been on servers
+  - The NoBus: nobody but us.
+    - Even our allies can't see it, only the US does
+    - When you talk about means and bugs in software, the idea of only your guys will find the bugs is delusional
+    - The flipside is, with Eternal Blue, when the NSA knew what was coming, it's almost certain NSA reached out to Microsoft and told them to patch their shit.
+    - Only 91 days later it's exploited by WannaCry
+    - The NSA and CIA knows already
+
+### SCADA
+- Supervisory Control and Data Acquisition
+- Industrial and commercial level systems to control industrial machines. 
+- Folks who can deal with SCADA are better compensated than professionals who don't give a shit
+- It's more about what happens in terms of what stakes you have. If a mistake means 3 million people lose power, it brings an interest of its own
+- In reality, people will opt for convenience. So while you may have a protocol barrier, there's no longer an air gap. 
+
+### Gaining Information from People
+- Human beings follow a similar activity during the day, following the same pattern. To gather intel, this sort of info is nice and easy.
+- If we have enough metadata, we don't need the data. We kill people from metadata.
+- A signature strike is through metadata signatures. You get Hellfire missiles up your ass from your DNS.
+- Datacenters have people sharing smaller IP address spaces. Basically, one of the sites that got blocked blocks everything. 
+
+### Why do organizations run old software?
+- Only certain environments are certified for it, or equipments will no longer support it
+- Also money
+- People run things and expect them to run for years above the service contract
+- While it's hard to blame institutions, questions must be asked of the manufacturer where people sweetspot profit on them by going minimal effort vs projected expectation of lifetime of use 
+- People have to buy new shit. At what point can organizations be forced to replace things.
+- Organizations make the tradeoff called where can I spend money for maximum effect. If there is not a perceived risk, they will not spend money there
+- People will only do something when shit hits the fan
+
+
+
+### Realities
+- People will trade off convenience for infosec 
+- **Zooko's Triangle**: Tradeoff of decentralization, security and usability
 
 ## Security Analysis 
 ### Basic Security Analysis
