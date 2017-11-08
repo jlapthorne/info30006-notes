@@ -44,10 +44,14 @@
     - [Why do organizations run old software?](#why-do-organizations-run-old-software)
     - [Realities](#realities)
   - [Security Analysis](#security-analysis)
+    - [Real World Security](#real-world-security)
     - [Basic Security Analysis](#basic-security-analysis)
-    - [What security strategies are effective](#what-security-strategies-are-effective)
-    - [Types of security strategies](#types-of-security-strategies)
-    - [The Common ADversary](#the-common-adversary)
+      - [Who/What Are We Protecting](#whowhat-are-we-protecting)
+      - [Who/What is the adversary/threat](#whowhat-is-the-adversarythreat)
+      - [What are the security requirements](#what-are-the-security-requirements)
+      - [Types of security strategies/approaches](#types-of-security-strategiesapproaches)
+    - [Threat MModels](#threat-mmodels)
+    - [The Common Adversary](#the-common-adversary)
   - [Knowledge Leak](#knowledge-leak)
     - [Data vs Information vs Knowledge](#data-vs-information-vs-knowledge)
     - [Knowledge Leakage](#knowledge-leakage)
@@ -65,7 +69,7 @@
     - [Privacy and Anonymity](#privacy-and-anonymity)
     - [Authentication](#authentication)
     - [Cryptography and Encryptions](#cryptography-and-encryptions)
-    - [Threats to Infosec](#threats-to-infosec)
+    - [Common Threats to Infosec](#common-threats-to-infosec)
     - [Security through Obscurity](#security-through-obscurity)
     - [Infosec Controls](#infosec-controls)
       - [SETA - Security Education Training and Awareness](#seta---security-education-training-and-awareness)
@@ -453,8 +457,10 @@ People think that if they only engage in legal activity, there's nothing they sh
 - "You can't be attacked when people don't know you exist"
 - Requires knowledge of data and information of software/infrastructure to attack against this
 - The less you reveal, the better - don't reveal more than you have to to the world
+  - Limit exposed information
+  - What's the least information needed to get the job done
+  - Obscurity doesn't mean indended is more secure 
 - We're trying to answer "what is the least required amount of information to get the job done?"
-  - Obscurity doesn't mean intended misdirection
   - Can violate the principle of simple means more secure
   - It's not always practical to have honeypots but it's not always the intention with the saying
 
@@ -560,37 +566,102 @@ Truth = (x-1/4) * 2
 - **Zooko's Triangle**: Tradeoff of decentralization, security and usability
 
 ## Security Analysis 
+### Real World Security 
+- **Specification**: What are systems supposed to do
+- **Implementation**: How does it work?
+- **Correctness**: Does it actually work?
+- **Human Nature**: Can the system survive "clever" users
+
 ### Basic Security Analysis
-- **Who/What Are We Protecting**
-- **Who/What is the adversary/threat**
-- **What are the security requirements**
+#### Who/What Are We Protecting
+- Get information of **asset value**
+- Understand the system architecture and how it works
+- What is the operating value? How much will we lose if the resource dies?
+- What is the replacement cost? How long would it take to replace it?
+- What is the replacement cost if you lose it, and how long would it take to replace it?
 
-### What security strategies are effective
+#### Who/What is the adversary/threat
+- What are their motivations? Who are they?
+- Estimate their resources (time and money)
+- Estimate number of attackers and the probability of attack
+
+#### What are the security requirements
+- Confidentiality
+- Integrity
+- Authenticty
+- Availability
+- Auditability
+- Access control
+- Privacy
+- etc...
+
+#### Types of security strategies/approaches
 - No security
+  - Legal protection or patents
+- Strong defense
+  - Technical means
 - Resilience to attacks
+  - Redundanacy
 - Detection, recovery and countermeasures 
-
-### Types of security strategies 
+  - Intrusion detection
+  - Redundancy and backups
+  - Response takes appropriate corrective actions against threats
+- Countermeasure
+  - Preventive countermeasure are barriers
+  - It prevents attackers from getting access of data behind it
 - Prevention and Detection
   - Passive defense
   - Not all measures are physical 
-  - Hardest strategy to implement and often the most expensive
+  - Hardest strategy to implement and often the most expensive - including physical protection
   - Experts can still find target
 - Deterrance
+  - Employ disciplinary actions to influence human behavior
+  - Influenced by certainty and severity of sanctions
+  - Giving punishments from violations may stop insider threats
 - Surveillance
-- Detection and response
+  - Systematic monitoring of the security environment towards developing situational awareness
+  - Assist to adapting in changing circumstances and threats 
+  - Monitoring activity logs, CCTV footage
+- Deception
+  - Distraction
+  - Honeypots
 - Perimeter defense
+  - Physical boundary
+  - Actual enclosures of servers 
+  - Firewalls
 - Compartmentalization
-- Layering
+  - Different target zones secured separately
+  - DMZ
+- Layering/Defense in Depth (DiD)
+  - Multiple barriers that complement each other
+  - Predicated in the belief that a single strategy is insufficient
+  - Another backs it up if one fails 
+
+### Threat MModels 
+- Can't protect against everything
+  - May be too expensive or inconvenient to cover everything
+  - benefit < cost
+- Identify most likely ways a system can be attacked
+  - Likely attackers and their resources 
+    - Dumpster diving or nation states
+  - Identify consequences
+    - Embarrasment vs bankruptcy
+  - Design measures accordingly
+    - Accept that they will not defendd against all attacks 
 
 
-### The Common ADversary
+### The Common Adversary
 - Attacker action
-  - Passive (just there waiting or unintentionally recovering exploits)
-  - Active (for malicious purposes)
+  - Passive (just there waiting or unintentionally recovering exploits - eavesdropping)
+  - Active (for malicious purposes - data injection)
 - Attacker sophistication
   - Script kiddies vs the CIA
 - Attacker capability
+  - External attacker - no prior knowledge of resources
+  - Internal attacker - knows all information of crypto, complete access
+
+Think like an attacker. They attack assetrs, not defenses, and will attempt to exploit weakest parts of defenses. 
+
 
 ## Knowledge Leak 
 ### Data vs Information vs Knowledge 
@@ -744,13 +815,13 @@ See markdown document outlining the APP.
   - Ensure data is correct, prvenintg unauthorized or improper changes
 
 ### Authentication
-- Verify identity
+- Authentication/Identification: Verify identity of other participants
 - Data authentication: Ensure that the data originates from claimed senders 
 
 ### Cryptography and Encryptions
 - Cryptography: Enables secure information transactions between intended sender and intended recipient
 
-### Threats to Infosec 
+### Common Threats to Infosec 
 Categories | Examples
 -|-
 Acts of human error or failure | Accidents, employee mistakes. Human error is all about mistakes in putting in or accessing information
@@ -903,12 +974,12 @@ Extra information from Solove, 2008
   - Make sure you understand the linkbetween the three topics. Understand the definitions, show how constructs relate with one another. 
   - Put things together - mind map it if you need it
 - The What, why, when, who, where
-  - Why is infosec and privacy is important
-  - What does it encompass/'
-  - What are we trying to protect and how?
-  - What are the threats out there and how are they classified
-  - Where did they come from? What can be done about them? What happens if we ignore them?
-  - Are the groupings really vital? Is it the same group of threats? Has it changed? What are the new infosec threat buzzwords
+  - **Why** is infosec important
+  - **What** does it encompass?
+  - **What** are we trying to protect and **how**?
+  - What are the **threats** out there and how are they classified
+  - **Where** did threats come from? What can be done about them? What happens if we ignore them?
+  - Are the groupings really vital? Is it the same group of threats? Has it changed? What are the new infosec threat buzzwords?
   - Think about what it actually means in our daily lives. 
 - Think about risks
   - Risks are inherent in every single workshop topic
