@@ -13,6 +13,8 @@
 
 ### Why?
 - possibility of monetary loss?
+- reputation/image
+- context of individuals: personal information, freedom from having personal information disclosed/surveillanced
 
 ## Assets
 - any data, device, or other component of the environment that supports information-related activities
@@ -185,6 +187,236 @@ Set of managerial and technical controls to protect information resources.
   - cryptography (encryption) a means to ensure privacy
 - legal, regulatory, political and technological aspects to privacy
 
+### What is privacy?
+Cohen (2013) - "What Privacy Is For"
+- "legal scholarship has conceptualised privacy as a form of protection for the liberal self"
+- invasion of privacy can be episodic or systematic
+- argues that freedom from surveillance is needed for an informed and reflective citizenship
+- privacy has an economic role in innovation: it shelters the processes of play and experimentation from which innovation emerges
+- Regimes of pervasively distributed surveillance and modulation seek to mold individual preferences and behavior in ways that reduce the serendipity and the freedom to tinker on which innovation thrives.
+  - Modulation: exerting a modifying/controlling influence on something
+  - it is modulation, not privacy by itself that poses the greater threat to innovative practice.
+
+Dictionary.com
+- state of being free from unwanted or undue intrusion or disturbance in one's private life or affairs
+- freedom from damaging publicity, public scrutiny, secret surveillance, or unauthorized disclosure of one's personal data or information, as by a government, corporation or individual
+
+
+### Important concepts
+- you're leaving digital footprints: not just what you post online, but metadata, fingerprinting, etc.
+  - work habits, cursor movement, browser and OS info, etc.
+  - metadata: location data
+  - not just your phone/tablet/device belieing your privacy:
+    - other people tagging/mentioning you
+    - geo-tags - if you happen to be inside a geo-tagged photo
+    - business and services: transactions, how you use their services (think rewards programs), CC (credit card) data -> business strategies from behavior from user accounts
+- example: "I know where your cat lives"
+  - metadata of cat pics: latitude an dlongitude coordinates embedded in their metadata
+
+### Footprints: phones
+- turning off phones might not be enough
+- NSA's TAO (Tailored Access Operations) unit
+  - exploits 0-days
+  - efficient, discrete attacks
+  - started when \<2% of world had access to internet
+  - DROPOUTJEEP: iPhone software implant
+    - push/pull files, contacts, voicemails, geolocation, hot mic, camera, cell tower, C&C (command and control), data exfiltration
+    - covert, encrypted comms
+- US Gov't spied on AP
+- Paul Farrell: journalist
+  - 200 pages of information about him from a FoI (freedom of information) request
+  - metadata and records, to find his source
+- NSA collected almost 200m SMSes a day across the globe
+  - extract data: location, contact networks, CC details
+
+### Impact of technology on privacy
+- difficult to be anonymous, or have privacy anymore
+  - technical:
+    - IP address transmitted
+    - user agent
+    - browser history
+    - cloud services don't delete data: "marked for deletion"
+    - case study: Paula Broadwell and Gen Petraeus
+      - discovered by capture of Broadwell's IP address
+      - convicted for access to classified information - was not imprisoned
+      - Paula hid her identity trying to be anonymous, sent threating emails to a Florida socialite
+      - former exec of FBI:
+        - her IP address was captured, they were using email drafts as an onlien dropbox to conceal email traffic -> account activity still logged
+    - data mining, facial recognition tech, activity modelling, fingerprinting
+      - the way you write
+        - word pairings, character ingrams,
+- the State as data-taker
+  - deliberate mechanisms to reduce privacy
+  - phones:
+- Snowden, other revelations
+
+### How to defend end-user privacy - good security practices; and how privacy and security are intertwined
+- periodically check privacy settings and update them
+- turn off settings that share information unnecessary for use/service
+- big five:
+  - patch
+  - strong passwords
+  - encrypt data at rest, in transit
+  - mfa and OTP
+  - optional: HTTPS everywhere, VPN
+
+### Data is valuable - to you and others
+- in every community, there is a necessary balance between the rights of the citizen and companies, particularly around privacy
+  - is ours out of balance?
+- dollar vs. data - experiment
+  - how much is your personal information worth?
+  - 3 characteristics that increase the value of your data?
+    - ethnicity, job, marriage status, etc.
+    - http://www.ft.com/cms/s/2/927ca86e-d29b-11e2-88ed-00144feab7de.html
+- private info
+  - how would it be valuable to others? Who do you think could use that information?
+    - institutions? companies? the government? your friends and family? cybercriminals?
+
+### Value of privacy, as provided by security on society, and particularly commerce
+- hard data about what happens to customers and commerce relating to security/privacy
+
+#### Customers' privacy and security - issues for business
+- customers want to feel their data is secure from unauthorised access and their privacy is kept intact
+- ways of ensuring privacy through better security can be heavy-handed and clunky for average user
+  - puts them off -> leads them to choose less secure options -> risking their privacy
+- 2 issues
+  - integrity of the company "harvesting" the data and using it, vs.
+  - integrity/protection of that data from others
+
+#### Is "secure" enough for privacy?
+- even if the data is kept appropriately?'
+- increasing no of large-scale data breaches: (Hasham S. et al 2016)
+  - higher security burden on clients
+  - diminsed UX for the customer
+  - on average, clients need to remember >14 passwords
+  - despite this, customer perception of security has gone worse
+  - issues around digital security and privacy "eroding consumer trust online" (Goldberg 2016)
+    - 45% of households reported that concerns about online security/privacy stopped them from:
+      - financial transactions, or buying goods/services, or posting on social networks, or expressing opinions on controversial or political issues via the internet?
+
+#### New realities for consumer behavior online (Goldberg 2016)
+- 19% of Internet-using households impacted by online security breach/identity theft/similar activity in the 12 months before the July 2015 survey
+- 22% of Internet-using households that used a mobile data plan to go online outside the home experienced an online security breach
+- 84% of households had at least 1 specific privacy or concern
+  - 40% had at least 2
+
+#### Case study: Equifax breach
+- breach that exposed sensitive data for 143m US consumers
+  - May 13 - July 30
+- did not disclose breach until Sept 7
+- critical vuln in Apache Struts Webapp framework
+  - known bug, trivial to exploit
+  - PATCH!
+- financial impact:
+  - stock tanked from $140 to $94 in 2 weeks
+
+#### Trade-offs between privacy/security and convenience: what customers say (Hasham, S et al. 2016)
+- 30% prioritize ease and convenience over security
+- want "basic level" operating behind the scenes, but say "having access to account info w/o the need to enter pswd attractive"
+- reject notion of a "OTP sent to them for every login"
+
+#### How to keep privacy through good security with high adoption among users (Hasham, S et al. 2016)
+- device/no recognition, omnichannel auth
+  - (customers don't want to be treated like strangers because they're on a different device)
+- remaining 20% prefer a verification phone call
+- log-in credentials should be the same across all channels
+  - allow custs to logn in one channel to use another, eliminating duplicate auths
+- better visual UX matters
+  - inconsistent design, poor error messaging, clunky comms, site slowness or unavailability make it less appealing to the end user to accept security that will improve their privacy
+
+### APP - overview
+#### Privacy policy
+A company's privacy policy describes how it gathers, uses, discloses and manages a customer's information.
+
+#### Legal background
+- Australian Information Commissioner Act 2010 (AIC Act) establishes the Office of the Australian Information Commissioner (OAIC), with 3 primary functions:
+  - privacy functions, conferred by Privacy Act 1988 (Privacy Act) and other laws
+  - freedom of information functions - oversight of the operation of the Freedom of Information Act 1982 (FoI Act), reviewing decisions made by agencies and ministers under that Act
+  - government information policy functions, conferred on the AIC under the AIC 2010 (AIC Act)
+- APPs, in schedule 1 of the Privacy Act, outline how most Australian and Norfolk Island Government agencies, all private sector and not-for-profit organisations with an annual turnover of more than $3 million, all private health service providers and some small businesses (collectively called 'APP entities') must handle, use and manage personal information
+- APPs are not prescriptive: each APP entity needs to ocnisder how the principles apply to its own situation
+
+#### APPs
+- 1: open and transparent management of personal information
+- 2: anonymity and pseudonymity
+- 3: collection of solicited personal information
+- 4: dealing with unsolicited personal information
+- 5: notification of the collection of personal information
+- 6: use or disclousre of personal information
+- 7: use/disclosure of personal info for direct marketing
+- 8: cross-border disclosure of personal information
+- 9: adoption, use or disclosure of government related identifiers
+- 10: quality of personal information
+- 11: security of personal information
+- 12: access to personal information
+- 13: correction of personal information
+
+#### Not prescriptive
+- separate APPs for situations in APP 7, 8 and 9
+- more stringent obligations on APP entities who handle "sensitive information"
+  - health, racial/ethnic origin, political opinions, membership of a political/professional/trade association/union
+  - religious beliefs/affiliations, philosophical beliefs, sexual orientation/practices, criminal record, biometric info, biometric templates
+
+#### USB killer
+
+### Privacy Audit - part 2
+#### Importance of encryption in email to privacy
+Snowden: "The security of people's communication is very important to me" (first approach to Greenwald)
+Urged Greenwald to start using PGP mail
+
+### Bonus: extra privacy and security steps
+- tweak IM settings - WhatsApp: remove cloud backups (unencrypted), security code verification, security notifications
+- paper printouts are not safer!
+  - secret information: yellow dots which can be seen under blue light or with digital manipulation
+  - encoded in documents when they were printed
+  - http://www.bbc.com/future/story/20170607-why-printers-add-secret-tracking-dots
+- turn off Bluetooth when not using it
+- Tor: browsing with more privacy
+- Ricochet - P2P IM via Tor
+
+### Differential privacy
+#### Privacy in the modern world
+- for each phone, you have a long trace of everything that it does
+  - spacio-temporal points (space and time)
+  - time can be very precise, location is rather broad (cell tower/WiFi triangulation)
+    - triangulation: only a triangle of cell towers needed to get a good fix of your location
+  - need some verification between data points to distinguish one person from another if that's all you have to track them
+    - even over large areas, trajectory of the places you went can still be unique
+    - (think: specific patterns, going home to specific places)
+- let's say we reduce the resolution of the data
+  - blur the time, blur the space
+  - still have a lot of uniqueness
+- how not to find yourself, an example
+  - 3m patients
+  - 17310 women share year of birth
+  - had 2 children in 2006 and 2011
+    - 59 possible matches, 25 in VIC
+  - exact birthdates +/- 14 days
+    - luckily there were no dates
+  - takeaway: it's really easy to pick someone out - easy to reidentify them from an "anonymised" dataset
+    - and possible when the dataset is updated
+
+#### Differential privacy: main idea
+- technique that came out from a research committee: how to get data about a population without exposing data of individuals?
+- analogy/idea: coin toss
+  - let's say we ask a sensitive question
+  - differential privacy adds "noise" to the answer:
+    - toss a coin. If you get heads, answer the truth
+    - If you get tails, toss a coin and say whatever the coin tells you (Heads -> Yes, Tails -> No)
+  - how does this protect someone's privacy?
+    - cannot be sure what every single person in the dataset answered thanks to the random noise
+      - said person can simply say "I got tails in the 1st coin and just answered whatever the coin told me to" even if they didn't: plausible deniability
+
+#### Differential privacy: formal definition
+- If for every 2 neighboring databases D1 and D2, the distributions returned by a mechanism M over D1 and D2 are close, the mechanism is differentially private. (Dwork et al 2006)
+  - Explanation
+    - The idea is: the mechanism does not return a precise value for every query towards the database. It returns an answer with random noise, usually from a probability distribution - so any answer given from the database is not precise.
+    - In addition to that, the mechanism (usually a probability distribution over the data) is constructed in such a way that small changes in the input (say whether a person is missing or not from the dataset) only affect the output very slightly.
+      - The idea is: any *one* person in the dataset can claim that he/she never contributed to it/said something else thanks to this random noise (as with the coin analogy above) - this preserves privacy of **individuals**
+      - But overall, when it comes to returning the general distribution over the population, this mechanism does not return useless data!
+- Mechanism: random function on a database
+- Neighboring: 2 databases, R<sup>n x d</sup> differ in only one row
+
 ## Cryptography
 - "art of writing and solving codes" - dictionary definition
 - sending messages that are secret from everyone but the intended recipient
@@ -315,8 +547,49 @@ Set of managerial and technical controls to protect information resources.
   - attacker uses factored 512-bit key to control SSL/TLS session
 
 ### Diffie-Hellman
+- 2 parties: Alice and Bob
+- Numbers
+  - primes: g and p - both Alice and Bob know these
+  - Alice picks a secret number a
+  - Bob picks a secret number b
+- Steps
+  - Alice computes A = g<sup>a</sup> mod p; Bob computes B = g<sup>b</sup> mod p
+  - Alice sends A to Bob, Bob sends B to Alice
+  - Alice calculates S = B<sup>a</sup> mod p, and Bob calculates S = A<sup>b</sup> mod p
+    - a and b are "local" secrets, A and B are in "public view" - sent through the network
+    - but the same key is still derived - thanks to a property of modulo exponents
+      - (g<sup>a</sup> mod p)<sup>b</sup> mod p = g<sup>ab</sup> mod p = (g<sup>b</sup> mod p)<sup>a</sup> mod p
 
-### Signal - 3-DH, double ratchet algorithm
+#### Signed DH
+- Alice and Bob agree on g and p (large prime) as before
+  - George (adversary) learns about g and p too
+- Alice generates a secret a and sends A = g<sup>a</sup> mod p to Bob
+  - and signs A with her private signing key
+- Bob generates a secret b and sends B = g<sup>b</sup> mod p to Alice
+- When Bob receives A from Alice, he checks her signature (using her public key) to make sure A is really from her
+  - takes care of the possibility of a MiTM attack
+- Alice and Bob computes S = g<sup>ab</sup> mod p as before
+- Bob sends Alice a message encrypted with their shared key S, using, for example AES
+  - AES(message, sharedKey)
+
+### Signal - X3DH, double ratchet algorithm
+- [Signal - Advanced Ratcheting](https://signal.org/blog/advanced-ratcheting/)
+- [Signal - X3DH](https://signal.org/docs/specifications/x3dh/)
+
+#### [Reddit thread on X3DH](https://www.reddit.com/r/netsec/comments/5bg3f4/x3dh_extended_triple_diffiehellman_key_exchange/)
+- X3DH uses 3 Diffie-Hellman key agreement phases
+- provides confidentiality, integrity and authenticity + plausible deniability and forward secrecy
+- Signal protocol is asynchronous: communication can begin and occur even when one of the users is not connected to the Signal network (complete later)
+
+```
+Signal uses 3DH + hash ratcheting + optional rekeying with 3DH.
+As a recipient, you have a list of signed asymmetric ephemeral keys stored on your behalf by your server.
+The person contacting you requests an ephemeral public key for you, and verifies the signature. He computes key exchanges between [his permanent private key + your ephemeral public key], [his ephemeral private key + your ephemeral public key] and [his ephemeral private key + your permanent public key].
+The three outputs are mixed to generate a seed. This seed is iterated (deleting past seed values) in a PFS manner using the hash ratchet for every message.
+Rekeying mixes the 3DH key exchange outputs with the existing iterated seed value.
+Both people know they're talking to the right person because they got the same output from all three key exchanges and thus both knows the respective private keys from the long term keypairs and ephemeral keys.
+And yet a falsified conversation is indistinguishable from a real one to somebody without ALL the keys!
+```
 
 # Workshops
 ## Week 2 - Mass Surveillance
