@@ -263,7 +263,7 @@ See: above from `#### Security analysis`
 - possible danger that might exploit a vulnerability to breach security -> cause harm
 - what we're trying to protect against
 
-### List of threats (Whitman, ME & Mattord, HJ 2012)
+### List of categories of threats (Whitman, ME & Mattord, HJ 2012)
 - human error
 - IP compromise - piracy, copyright infringement
 - deliberate acts of:
@@ -731,6 +731,7 @@ Urged Greenwald to start using PGP mail
 - digital signatures: digital analog of pen signatures
   - but very different implementation
   - RSA signature: computed using the private key
+    - https://www.cs.cornell.edu/courses/cs5430/2015sp/notes/rsa_sign_vs_dec.php
     - and verifiable using the public key -> verify if private key holder *did* sign the message
     - *d*, computed from *p* and *q*
       - totient: lcm of (p-1) and (q-1)

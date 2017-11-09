@@ -1,7 +1,7 @@
 
 # Australian Privacy Principles
 ## Consideration of Personal Information Privacy
-- Outlines that APP entities will need to show how they use personal information, purpose of colllecting information, how people access information, complain about breaches to APP codes, whether the data would be sent overseas and which country 
+- Outlines that APP entities will need to show how they use personal information, purpose of colllecting information, how people access information, complain about breaches to APP codes, whether the data would be sent overseas and which country
 - APP policies should be free of charge and any appropriate form requested
 - People should be able to use pseudonyms or not identify themselves when dealing with APP entities, except if it is required by law for individuals to identify themselves or if it is impractical to use them
 
@@ -14,7 +14,7 @@
   - Must be by consent or authorized by law
 
 ## Dealing with Unsolicited Personal Information
-- If there's anything entities do not olicit, the entity should consider if they were actually allowed to colelct that information.
+- If there's anything entities do not solicit, the entity should consider if they were actually allowed to collect that information.
 - The entity should destroy the information if the information wasn't meant to be there
 
 ## Notification of the Collection of Personal Information
@@ -30,8 +30,8 @@
   - Whether the APP entity may send the data overseas and to where
 
 ## Dealing With personal Information
-- YOu can only hold information that has been consented
-- The individual would reasonably expect entities to use the data only if related to why it's being retained, or if required byy law, or permitted general/health situations exist
+- You can only hold information that has been consented
+- The individual would reasonably expect entities to use the data only if related to why it's being retained, or if required by law, or permitted general/health situations exist
 - If an APP entity uses or discloses personal information, they must make a written note of the use.
 - This does not apply for to the use or disclosure by an organization of personal information for the purpose of direct marketing or government related identifiers
 
