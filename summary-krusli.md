@@ -9,7 +9,7 @@
     - and, consequently, information systems, where information is created, processed, stored, transmitted and destructed,
   - free from threats
 - in other words: defending information
-  - preventing the unauthorised access, use, disclosure, disruption, modification, inspection, recording or destruction of information
+  - preventing the unauthorised access, use, disclosure, disruption, modification, inspection, recording or destruction of information (CNSS 2010)
 
 ### Sensitive information
 Information protected against unwarranted disclosure (to protect privacy/security of an individual/organisation)
@@ -263,7 +263,7 @@ See: above from `#### Security analysis`
 - possible danger that might exploit a vulnerability to breach security -> cause harm
 - what we're trying to protect against
 
-### List of threats (Whitman, ME & Mattord, HJ 2012)
+### List of categories of threats (Whitman, ME & Mattord, HJ 2012)
 - human error
 - IP compromise - piracy, copyright infringement
 - deliberate acts of:
@@ -394,7 +394,7 @@ Set of managerial and technical controls to protect information resources.
 ### Policy
 - policy:
   - plan/course of action
-  - conveys instructions from an organisation's senior management to those who make decisions, take actions, and perform othr duties (Whitman, ME & Mattord, HJ 2012)
+  - conveys instructions from an organisation's senior management to those who make decisions, take actions, and perform other duties (Whitman, ME & Mattord, HJ 2012)
 - types
   - strategic-level guidance
   - operational-level guidance
@@ -731,6 +731,7 @@ Urged Greenwald to start using PGP mail
 - digital signatures: digital analog of pen signatures
   - but very different implementation
   - RSA signature: computed using the private key
+    - https://www.cs.cornell.edu/courses/cs5430/2015sp/notes/rsa_sign_vs_dec.php
     - and verifiable using the public key -> verify if private key holder *did* sign the message
     - *d*, computed from *p* and *q*
       - totient: lcm of (p-1) and (q-1)
