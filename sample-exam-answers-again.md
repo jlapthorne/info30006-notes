@@ -2,7 +2,7 @@
 
 ## Part I: Information Security
 1
-- Authentication: verify if other entity in an information transaction is who they say they are
+- Authentication: verify if the other entity in an information transaction is who they say they are
 - Accountability: possibility of tracing actions and events to the processes/entities that performed them
 - Anonymity: protocol participant(s) cannot be identified
 - Auditability: keeping logs and audit trails
