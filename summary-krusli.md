@@ -11,6 +11,113 @@
 - in other words: defending information
   - preventing the unauthorised access, use, disclosure, disruption, modification, inspection, recording or destruction of information
 
+### Sensitive information
+Information protected against unwarranted disclosure (to protect privacy/security of an individual/organisation)
+
+### InfoSec (Week 11 Lecture)
+Protecting information systems against misuse and interference from external parties.
+"Building systems to remain dependable in the face of malice, error or mischance" - Ross Anderson
+
+### Properties of a secure system
+#### CIA triad
+- Confidentiality: information is protected from unintended disclosure (secrecy, privacy, access control)
+- Integrity: system, data and information are maintained in a correct and consistent condition
+- Availability: system, data and information are usable when needed (includes timeliness)
+- note: information also implies knowledge
+
+#### Secrecy and confidentiality
+- Secrecy: keeping data hidden - e.g. keeping an incriminating secret
+- Confidentiality: keep (someone else's) data hidden from unauthorised entities
+
+#### Privacy and anonymity
+- Privacy: use/disclose a person's data according to a set of rules - e.g. de-identification of information
+- Anonymity: keep identity of a protocol participant secret - e.g. TOR
+
+#### Integrity, authentication
+- integrity
+  - ensure data is "correct" - unchanged, correct syntax
+  - prevent unauthorised or improper changes
+- entity auth/id: verify identitiy of another protocol participant
+- data auth: ensure that data originates from claimed sender
+
+### "Security through obscurity"
+"You can't be attacked if adversaries don't know you exist/what you use/etc."
+- attacking a system requires knowledge of how it works
+  - info can narrow field of potential exploits
+- solution
+  - limit exposed information - all public info are clues for hackers
+    - "what is the least information needed to get the job done?"
+  - obscurity != misdirection
+    - misdirection adds complexity (e.g. adding fake servers, fake data)
+    - principle: "simple is more secure" violated - additional complexity -> more points of failure
+
+### Basic security analysis
+#### Real-world security - principles
+- specification/policy: what system is supposed to do
+- implementation/mechanism: how it is done
+- correctness/assurance: does it work
+- human nature: "clever" users?
+
+#### Security analysis
+- who/what are we protecting?
+  - information assets, and their value
+  - understand the architecture of the system
+  - ask:
+    - what's the operating value? (rate of loss if resource is gone)
+    - replacement cost: time, cost?
+      - quite high if competitive advantage
+- who/what are the adverseries/potential threats?: identifying potential attackers
+  - motivations? nation state vs. script kiddie?
+  - estimate resources, no of attackers, likelihood of attack
+  - recall: risk, vulnerability, threat
+  - for exam: concepts, not definitions will be asked - more in line with workshops
+  - common (abstract) adversary: a framework to help assess who/how severe threats are
+    - action: passive/active?
+    - sophistication: script kiddies vs gov't funded?
+    - access: external/internal?
+      - result of system compromise
+- what are the security requirements?
+  - enumerate security requirements: CIA, availability, access control, privacy
+    - for exam: understsand beyond defiinitions
+- what security strategies are effective?
+  - list:
+    - no security
+    - resilience to attack - redundant systems
+    - detection, recovery (and offense) - intrusion detection
+    - *will not be asked in depth*
+  - types
+    - prevention
+      - block attacks, before they happen
+      - passive, may be software (not just H/W)
+      - hardest strategy - most expensive
+        - think: protecting someone from an assasin
+    - countermeasure
+      - only barriers - slowing down/preventing attacker from getting to asset
+    - deterrence
+    - surveillance
+    - detection and response
+    - perimeter defense
+      - old principle: in the Middle Ages, placing castles in very strategic places such that you can easily get in and get out (at the border)
+      - having several defense mechanisms
+        - where you are
+        - moats
+        - towers + secret entrances + sub-towers
+        - same principle - going through multiple gates
+    - compartmentalisation: limiting access to information to persons/other entities
+    - layering
+      - "defense in depth"
+      - combining multiple security controls to protect resources/data
+
+#### Threat modelling
+- you *cannot* protect against everything
+  - too expensive and takes too much time
+- have to model what to protect against
+
+#### Think like an attacker
+- target: asset, not defenses
+- weakest link
+- adapt steps depending on context
+
 ### Why?
 - possibility of monetary loss?
 - reputation/image
@@ -20,6 +127,137 @@
 - any data, device, or other component of the environment that supports information-related activities
 - hardware, software, confidential information, people
 - what we are trying to protect
+
+### Knowledge leakage
+- KIF: knowledge intensive firm (Anand, Gardner & Morris 2007, Teece 2003, Winch and Schneider 1993)
+  - characterised by an analytical knowledge base
+  - strong reliance on knowledge as a basis for competitive advantage
+  - differentiator: produce qualified products and/or services; even generate new and unique knowledge
+
+#### Motivation
+- mobile devices increase organisational risks
+- **money**: each incident costs US$2.8m on average (Aus)
+  - investigation and assessment - 2nd highest worldwide (US$1.2m)
+- insider threat: employees accidentally or intentionally leak knowledge
+  - culture, people
+  - weakest link
+
+#### Data, information and knowledge
+- can be thought of as a cycle
+- data -> information
+  - processing, analysing
+- information -> knowledge
+  - internalised: absorbed by mind
+- knowledge -> information
+  - externalised: verbalised/illustrated
+- information -> data
+  - captured and stored
+- tacit knowledge: knowledge that is not easily expressed
+- explicit knowledge: formal and systematic - easily communicated and shared, documented
+- cycle
+  - explicit knowledge -> tacit knowledge: internalisation
+  - internalisation -> socialisation
+  - tacit -> explicit: externalisation
+  - externalisation -> combination
+- cycle (2) (Alavi and Leidner 2001)
+  - knowledge -> information: when it has been codified (made explicit) into artefacts
+  - possible to infer knowledge from information
+- knowledge (Davenport and Prusak 1998):
+  - fluid mix of framed experience, values, contextual **information** and expert insight that provides a framework for evaluating and incorporating new experiences and information
+  - originates, is applied in the minds of "knowers"
+  - organisations - embedded not only in docs/repos but also in routines/processes/practices/norms
+
+##### Different perspectives on knowledge
+- Fahey and Prusak: data, information and knowledge compared
+  - data: raw facts and no
+  - information: processed data
+  - knowledge: personalised information, value-added information
+- state of mind (Schubert et al, 1998)
+  - state of knowing and understanding
+- object (Carlson et al 1996, McQueen 1998, Zack 1998)
+  - object to be stored and manipulated
+    - object: knowledge stocks
+  - IT: provides access to knowledge *sources*, not knowledge itself
+- process (McQueen 1998, Zack 1998)
+  - process of applying expertise (flows, creating, sharing and distribution)
+  - process of knowing and acting
+- capability (Carlson et al 1996, Watson 1999)
+  - potential to influence action
+  - building core competencies and understanding strategic know-how necessary in decision making
+
+#### Knowledge Leakage
+- accidental or deliberate loss or unauthorised transfer of knowledge
+  - knowledge intended to stay within an organisation's boundary that may weaken the competitiveness and industrial position of the organisation
+  - (Annaisgngh 2007, Frishammar et al 2010)
+- confidentiality from CIA triad
+- examples: IP, trade secrets, business strats, product designs
+
+##### Compared
+- data and info leakage: can take technical approach; CIA requirements
+  - data prevention loss, encryption, firewall, antivirus
+- knowledge leakage: human approach - as knowledge is embedded in people
+  - knowledge protection, legal, tacit knowledge instead of explicit, compartmentalisation, disruption, misinformation, Knowledge Protection Policies
+  - **Confidentiality**, Knowledge Protection, Knowledge Retention, security risk exposure (perceived)
+
+##### KLR (KL risk)
+- extent to which an org is threatened by a KL event
+  - function of impact and likelihood
+  - KLR = KL impact x KL likelihood
+
+#### Strategies
+See: above from `#### Security analysis`
+
+#### Findings
+- human factor: how to prevent KL
+- personal context
+  - develop trust
+  - use deterrents (punishments/sanctions)
+  - weed out high risk people/positions
+  - user behavior analytics
+  - gamification (simulation) - see what could go wrong
+  - SETA
+  - decoy campaigns
+  - quote from CEO: if people are weakest link, education is the strongest link -> education program
+- social context
+  - mobile security culture - habits
+  - deterrants
+  - communities/portal (tips, reminderse, HR mood boost)
+  - peer mentoring - encourage asking questions
+- organisational context
+  - mobile risk management framework - IDing valuable knowledge assets - who knows what
+  - standards, policies, procedures (for mobile workers)
+  - legal
+  - embed security into knowledge processes to protect when using mobile devices
+  - knowledge governance: HRM dealing with tacit knowledge
+  - roles for Knowledge Protection
+  - protecting knowledge flows
+  - embed extra complexity into process
+  - constant monitoring to *mobile* workers dealing w/ sensitive knowledge
+  - knowledge management strat
+  - resilience capability - handle impacts
+  - knowledge reconfiguration: combine knowledge assets to create new knowledge
+  - multi-disciplinary integration
+- environment
+  - cooperate between orgs
+  - factors to deter knowledge transfer
+  - market analysis
+  - analyse competitors/adversaries
+  - counter-intelligence
+  - policies for off-site work
+  - conversation and behaviors outside company
+- devices
+  - MDM
+  - encryption
+  - geolocks
+  - sandboxing
+  - remote admin
+- technical
+  - enterprise mobility strategy
+  - mobile device usage analytics
+  - knowledge compartmentalisation
+  - classification - tagging/labelling
+  - auth, control, tracking of documents
+
 
 ## Threats
 - possible danger that might exploit a vulnerability to breach security -> cause harm
