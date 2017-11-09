@@ -13,12 +13,18 @@
     - [What is Infosec](#what-is-infosec)
     - [The Security Threat Landscape](#the-security-threat-landscape)
   - [Managing Security Risks](#managing-security-risks)
-  - [Symmetric and Asymmetric Cryptography](#symmetric-and-asymmetric-cryptography)
+  - [Cryptography](#cryptography)
+    - [Secret-key crypto](#secret-key-crypto)
+    - [Public-key crypto](#public-key-crypto)
     - [RSA](#rsa)
     - [TLS and CAs](#tls-and-cas)
     - [Example: Maths and Democracy: Internet Voting](#example-maths-and-democracy-internet-voting)
+        - [Security properties required](#security-properties-required)
     - [FREAK Attacks](#freak-attacks)
     - [End To End Encryption](#end-to-end-encryption)
+      - [Diffie-Hellman: End to End](#diffie-hellman-end-to-end)
+      - [Signed DH](#signed-dh)
+      - [RSA Signing](#rsa-signing)
   - [Digital Signatures and Application of Cryptography](#digital-signatures-and-application-of-cryptography)
   - [Guest Lecture: Digital Privacy Rights, Then, Now and In The Future](#guest-lecture-digital-privacy-rights-then-now-and-in-the-future)
     - [Downsides to Encryption](#downsides-to-encryption)
@@ -36,6 +42,7 @@
   - [Privacy in the Modern World and Differential Privacy](#privacy-in-the-modern-world-and-differential-privacy)
     - [Security through Obscurity](#security-through-obscurity)
     - [Differential Privacy](#differential-privacy)
+      - [Formal definition](#formal-definition)
   - [The Security Audit](#the-security-audit)
   - [Industrial Perspectives of Infosec](#industrial-perspectives-of-infosec)
     - [Political Influence in Infosec](#political-influence-in-infosec)
@@ -44,22 +51,23 @@
     - [Why do organizations run old software?](#why-do-organizations-run-old-software)
     - [Realities](#realities)
   - [Security Analysis](#security-analysis)
-    - [Real World Security](#real-world-security)
+    - [Principles](#principles)
     - [Basic Security Analysis](#basic-security-analysis)
       - [Who/What Are We Protecting](#whowhat-are-we-protecting)
       - [Who/What is the adversary/threat](#whowhat-is-the-adversarythreat)
+        - [The Common Adversary](#the-common-adversary)
       - [What are the security requirements](#what-are-the-security-requirements)
       - [Types of security strategies/approaches](#types-of-security-strategiesapproaches)
-    - [Threat MModels](#threat-mmodels)
-    - [The Common Adversary](#the-common-adversary)
+    - [Threat Models](#threat-models)
   - [Knowledge Leak](#knowledge-leak)
     - [Data vs Information vs Knowledge](#data-vs-information-vs-knowledge)
     - [Knowledge Leakage](#knowledge-leakage)
     - [Knowledge Leakage Risk](#knowledge-leakage-risk)
     - [Knowledge Leakage - Multidimensional Problem](#knowledge-leakage---multidimensional-problem)
+      - [Knowledge Leakage Framework](#knowledge-leakage-framework)
   - [Concepts](#concepts)
     - [CIA](#cia)
-      - [The Additional Security Principles](#the-additional-security-principles)
+      - [The Additional Security Principles/Security Goals](#the-additional-security-principlessecurity-goals)
     - [Australian Privacy Principles](#australian-privacy-principles)
     - [Privacy, Anonymity, and Security](#privacy-anonymity-and-security)
     - [Assets, Threats, Vulnerabilities, Risks](#assets-threats-vulnerabilities-risks)
@@ -70,12 +78,11 @@
     - [Authentication](#authentication)
     - [Cryptography and Encryptions](#cryptography-and-encryptions)
     - [Common Threats to Infosec](#common-threats-to-infosec)
-    - [Security through Obscurity](#security-through-obscurity)
-    - [Infosec Controls](#infosec-controls)
+    - [Risk Management](#risk-management)
+    - [Infosec Control Concepts](#infosec-control-concepts)
       - [SETA - Security Education Training and Awareness](#seta---security-education-training-and-awareness)
-      - [Risk Management](#risk-management)
       - [Infosec Policy](#infosec-policy)
-      - [Infosec Security Strategy](#infosec-security-strategy)
+      - [Infosec Strategy](#infosec-strategy)
     - [Defense in Depth](#defense-in-depth)
     - [Taxonomy of Privacy](#taxonomy-of-privacy)
   - [Case Studies](#case-studies)
@@ -130,8 +137,10 @@
 
 ## Introduction to Security and Privacy
 ### What is Infosec 
+Protecting assets against unwarranted access/disclosure/modification/destruction.
 
-We want to protect knowledge as a competitive advantage. We safeguard information through the use of:
+
+We want to protect knowledge by protecting privacy/security of individual/organisation. We safeguard information through the use of:
 
 - Compartmentalization
 - Physical barriers/protection
@@ -156,9 +165,30 @@ We want to protect knowledge as a competitive advantage. We safeguard informatio
 
 Threats can't be controlled, and you can't do much to identify them. In order to minimize the risk of an attack, you have to identify them.
 
-## Symmetric and Asymmetric Cryptography 
+## Cryptography 
+- sending messages that are secret from everyone but intended recipient(s)
+- encryption: "hiding" message for sending, so no one else can understand it
+- decryption: "un-hiding"
 - symmetric: one key for both encrypting and decrypting
 - asymmetric: public-private key cryptography
+
+### Secret-key crypto
+- sender and receiver agree on key in advance
+- use same key for encrypting/decrypting
+- e.g. AES - still in use
+
+### Public-key crypto
+- asymmetric: only one party can read the sent messages
+- receiver generates 2 keys:
+  - public key *e* for encrypting
+  - private key *d* for decrypting
+- receiver publicises the public key *e*
+  - people encrypt messages sent to the receiver using *e*
+- receiver keeps private key *d* secret
+  - to decrypt messages
+- use
+  - exchanging a secret key for secret-key cryptography
+
 
 ### RSA
 - receiver thinks of 2 large numbers p, q
@@ -183,8 +213,10 @@ Threats can't be controlled, and you can't do much to identify them. In order to
 - Transport Layer Security 
   - Add integrity and pepper with potential secrecy 
   - Check the public key of the website you're talking to, to check if that public key actually does belong to that domain 
+ checks the public key of the website you are visiting: if it does belong to the organisation that owns this URL
 - CAs and Root Certificates 
-	- RSA *signature*: something who the person who holds the private key can compute on the message
+	- **Digital signature**: something who the person who holds the private key can compute on the message
+    - RSA signatures computed with the private key
 		- and then can use the public key to verify that the person with the private key signed the message
 	- built-in certificates in our PCs: root certificates
 		- CA signs the statement that a website’s public key is as such
@@ -218,6 +250,13 @@ Threats can't be controlled, and you can't do much to identify them. In order to
 	- 512 bits long public key
 		- possible to intercept the traffic, decrypt the key, expose how everyone who passes through that route voted, changed their vote
 
+##### Security properties required
+- **verifiability**: no one can manipulate the output
+  - only eligible voters vote, only once
+  - voters should get evidence that their vote was cast as intended and counted as cast
+  - everyone gets evidence votes were properly tallied
+- **privacy**: coercers cannot manipulate the inputs e.g. by blackmail
+- achieving both is hard, especially for remote voting
 
 ### FREAK Attacks
 - a huge part of the strength of RSA is the length of the prime numbers
@@ -250,32 +289,56 @@ Threats can't be controlled, and you can't do much to identify them. In order to
   - Encrypt messages so that only the receiver can read 
 - In contrast to services such as Gmail or Facebook
   - Servers have access to the content you've written
-- Diffie-Hellman: End to End
-	- Alice and Bob
-	- everyone knows (part of the protocol)
-		- a prime *p*
-			- another large prime (300 or 600 digits)
-		- a generator *g*
-	- secret
-		- Alice has a secret *a*
-		- Bob has a secret *b*
-	- Alice computes A = g<sup>a</sup> mod p
-	- Bob sends to B = g<sup>b</sup> mod p
-	- Alice sends big A to Bob
-	- Bob sends big B to Alice
-		- big letters are sent in a way that anybody can read it
-	- once we’ve agreed on a shared secret, we have a key to use for symmetric cryptography
-	- shared secret: g<sup>ab</sup> mod p
-		- how can Alice compute this from little a and big B?
-			- S = B<sup>a</sup> = (g<sup>b</sup>)<sup>a</sup> = g<sup>ab</sup> mod p
-		- Bob
-			- S = A<sup>b</sup> = (g<sup>a</sup>)<sup>b</sup> = g<sup>ab</sup> mod p
-		- what’s the big assumption?
-			- remember that in RSA: prime numbers are hard to factorise
-			- here, the big assumption (discrete log assumption)
-				- hard to compute a from A and b from B, even if you know all the other parameters
-  - Somebody who has one of the secrets can possibly calculate it 
 
+#### Diffie-Hellman: End to End
+- Alice and Bob
+- everyone knows (part of the protocol)
+  - a prime *p*
+    - another large prime (300 or 600 digits)
+  - a generator *g*
+- secret
+  - Alice has a secret *a*
+  - Bob has a secret *b*
+- Alice computes A = g<sup>a</sup> mod p
+- Bob sends to B = g<sup>b</sup> mod p
+- Alice sends big A to Bob
+- Bob sends big B to Alice
+  - big letters are sent in a way that anybody can read it
+- once we’ve agreed on a shared secret, we have a key to use for symmetric cryptography
+- shared secret: g<sup>ab</sup> mod p
+  - how can Alice compute this from little a and big B?
+    - S = B<sup>a</sup> = (g<sup>b</sup>)<sup>a</sup> = g<sup>ab</sup> mod p
+  - Bob
+    - S = A<sup>b</sup> = (g<sup>a</sup>)<sup>b</sup> = g<sup>ab</sup> mod p
+  - what’s the big assumption?
+    - remember that in RSA: prime numbers are hard to factorise
+    - here, the big assumption (discrete log assumption)
+      - hard to compute a from A and b from B, even if you know all the other parameters
+- Somebody who has one of the secrets can possibly calculate it 
+
+#### Signed DH
+- Alice and Bob agree on g and p (large prime) as before
+  - George (adversary) learns about g and p too
+- Alice generates a secret a and sends A = g<sup>a</sup> mod p to Bob
+  - and signs A with her private signing key
+- Bob generates a secret b and sends B = g<sup>b</sup> mod p to Alice
+- When Bob receives A from Alice, he checks her signature (using her public key) to make sure A is really from her
+  - takes care of the possibility of a MiTM attack
+- Alice and Bob computes S = g<sup>ab</sup> mod p as before
+- Bob sends Alice a message encrypted with their shared key S, using, for example AES
+  - AES(message, sharedKey)
+
+
+#### RSA Signing
+- *d*, computed from *p* and *q*
+  - totient: lcm of (p-1) and (q-1)
+  - d: modular multiplicative inverse of e (mod totient)
+    - d x e mod totient = 1
+- signing: holder of private key has a value d with the property (x<sup>e<sup>d</sup></sup> = x (mod N))
+  - getting at d is equivalent to factorising N
+  - verify signature: S<sup>e</sup> = Pad(Hash(M)) (mod N)
+    - M: message
+    - N: public key component
 
 ## Digital Signatures and Application of Cryptography 
 ```
@@ -489,6 +552,19 @@ Truth = (x-1/4) * 2
 - In particular, this allows us to protect queries against *one* individual in this definition
 - We're trying to hide information of that one person, by arguing that if the person is added to the database, it's not going to change anything to the data
 - It attempts to shield the conclusion that *any one individual* is within a dataset even by comparing two distinct datasets, with or without that individual. 
+- how does this protect someone's privacy?
+  - cannot be sure what every single person in the dataset answered thanks to the random noise
+    - said person can simply say "I got tails in the 1st coin and just answered whatever the coin told me to" even if they didn't: plausible deniability
+
+#### Formal definition
+- If for every 2 neighboring databases D1 and D2, the distributions returned by a mechanism M over D1 and D2 are close, the mechanism is differentially private. (Dwork et al 2006)
+  - Explanation
+    - The idea is: the mechanism does not return a precise value for every query towards the database. It returns an answer with random noise, usually from a probability distribution - so any answer given from the database is not precise.
+    - In addition to that, the mechanism (usually a probability distribution over the data) is constructed in such a way that small changes in the input (say whether a person is missing or not from the dataset) only affect the output very slightly.
+      - The idea is: any *one* person in the dataset can claim that he/she never contributed to it/said something else thanks to this random noise (as with the coin analogy above) - this preserves privacy of **individuals**
+      - But overall, when it comes to returning the general distribution over the population, this mechanism does not return useless data!
+- Mechanism: random function on a database
+- Neighboring: 2 databases, R<sup>n x d</sup> differ in only one row
 
 ## The Security Audit 
 - Patch and update
@@ -566,7 +642,7 @@ Truth = (x-1/4) * 2
 - **Zooko's Triangle**: Tradeoff of decentralization, security and usability
 
 ## Security Analysis 
-### Real World Security 
+### Principles
 - **Specification**: What are systems supposed to do
 - **Implementation**: How does it work?
 - **Correctness**: Does it actually work?
@@ -581,9 +657,18 @@ Truth = (x-1/4) * 2
 - What is the replacement cost if you lose it, and how long would it take to replace it?
 
 #### Who/What is the adversary/threat
-- What are their motivations? Who are they?
-- Estimate their resources (time and money)
-- Estimate number of attackers and the probability of attack
+##### The Common Adversary
+- Attacker **action**
+  - Passive (just there waiting or unintentionally recovering exploits - eavesdropping)
+  - Active (for malicious purposes - data injection)
+- Attacker **sophistication**
+  - Script kiddies vs the CIA
+- Attacker **access**
+  - External attacker - no prior knowledge of resources
+  - Internal attacker - knows all information of crypto, complete access
+- Attacker **impact**
+  - The result of the compromise
+
 
 #### What are the security requirements
 - Confidentiality
@@ -596,52 +681,53 @@ Truth = (x-1/4) * 2
 - etc...
 
 #### Types of security strategies/approaches
-- No security
+
+- **No security**
   - Legal protection or patents
-- Strong defense
+- **Strong defense**
   - Technical means
-- Resilience to attacks
+- **Resilience to attacks**
   - Redundanacy
-- Detection, recovery and countermeasures 
+- **Detection, recovery and countermeasures**
   - Intrusion detection
   - Redundancy and backups
   - Response takes appropriate corrective actions against threats
-- Countermeasure
+- **Countermeasure**
   - Preventive countermeasure are barriers
   - It prevents attackers from getting access of data behind it
-- Prevention and Detection
+- **Prevention and Detection**
   - Passive defense
   - Not all measures are physical 
   - Hardest strategy to implement and often the most expensive - including physical protection
   - Experts can still find target
-- Deterrance
+- **Deterrance**
   - Employ disciplinary actions to influence human behavior
   - Influenced by certainty and severity of sanctions
   - Giving punishments from violations may stop insider threats
-- Surveillance
+- **Surveillance**
   - Systematic monitoring of the security environment towards developing situational awareness
   - Assist to adapting in changing circumstances and threats 
   - Monitoring activity logs, CCTV footage
-- Deception
+- **Deception**
   - Distraction
   - Honeypots
-- Perimeter defense
+- **Perimeter defense**
   - Physical boundary
   - Actual enclosures of servers 
-  - Firewalls
+  - **Firewalls**
 - Compartmentalization
   - Different target zones secured separately
   - DMZ
-- Layering/Defense in Depth (DiD)
+- **Layering**/**Defense in Depth (DiD)**
   - Multiple barriers that complement each other
   - Predicated in the belief that a single strategy is insufficient
   - Another backs it up if one fails 
 
-### Threat MModels 
+### Threat Models 
 - Can't protect against everything
   - May be too expensive or inconvenient to cover everything
   - benefit < cost
-- Identify most likely ways a system can be attacked
+- Identify most likely ways a system can be attacked - the weakest links
   - Likely attackers and their resources 
     - Dumpster diving or nation states
   - Identify consequences
@@ -649,18 +735,6 @@ Truth = (x-1/4) * 2
   - Design measures accordingly
     - Accept that they will not defendd against all attacks 
 
-
-### The Common Adversary
-- Attacker action
-  - Passive (just there waiting or unintentionally recovering exploits - eavesdropping)
-  - Active (for malicious purposes - data injection)
-- Attacker sophistication
-  - Script kiddies vs the CIA
-- Attacker capability
-  - External attacker - no prior knowledge of resources
-  - Internal attacker - knows all information of crypto, complete access
-
-Think like an attacker. They attack assetrs, not defenses, and will attempt to exploit weakest parts of defenses. 
 
 
 ## Knowledge Leak 
@@ -675,7 +749,7 @@ Think like an attacker. They attack assetrs, not defenses, and will attempt to e
 
 ### Knowledge Leakage
 - Intentional
-  - Disclosure of knowledge
+  - Disclosure of knowledge`
   - Copy of organizational sensitive content
 - Unintentional 
   - Accidental emails to recipeints
@@ -707,6 +781,9 @@ Think like an attacker. They attack assetrs, not defenses, and will attempt to e
   - Device context
   - Technical context
 
+#### Knowledge Leakage Framework
+**In SMBs**
+![](img/knowledgeleakageframework.png)
 
 ---
 
@@ -714,19 +791,26 @@ Think like an attacker. They attack assetrs, not defenses, and will attempt to e
 ## Concepts
 ### CIA 
 - Confidentiality
+  - Ensuring information is exposed to authorized parties only, and that information is kept secret.
+  - Subclasses
+    - Privacy: Disclosing data according to a set of rules
+    - Secrecy: Hiding data
 - Integrity
+  - Guarding against improper information modification or removal, and ensuring information accuracy, authenticity and nonrepudiation. Maintaining a correct state of data/information. 
 - Availability
+  - Timely ability to access and use information at all times.
 - Additional
   - Authenticity
+  - Accountability
   - Auditability 
-  - Access control
   - Privacy
   - Nonrepudiation
 
-#### The Additional Security Principles
+#### The Additional Security Principles/Security Goals
 Some of them are already covered by the CIA 
 
 - Accountability
+- Access control
 - Assurance
 - Reliability
 - Effectiveness
@@ -748,6 +832,21 @@ Some of them are already covered by the CIA
 ### Australian Privacy Principles 
 See markdown document outlining the APP. 
 
+- 1: open and transparent management of personal information
+- 2: anonymity and pseudonymity
+- 3: collection of solicited personal information
+- 4: dealing with unsolicited personal information
+- 5: notification of the collection of personal information
+- 6: use or disclousre of personal information
+- 7: use/disclosure of personal info for direct marketing
+- 8: cross-border disclosure of personal information
+- 9: adoption, use or disclosure of government related identifiers
+- 10: quality of personal information
+- 11: security of personal information
+- 12: access to personal information
+- 13: correction of personal information
+- not prescriptive, more stringent obligations on APP entities with access to sensitive info
+
 ### Privacy, Anonymity, and Security 
 - Anonymity and Privacy are two different but related concepts
   - Anonymity is a subset of privacy
@@ -760,20 +859,21 @@ See markdown document outlining the APP.
 
 ### Assets, Threats, Vulnerabilities, Risks
 - ![](img/tvr.png)
-- Assets
+- **Assets**
   - Something of value
-  - People, property, information
-- Threats
+  - People, property, information that supports information-related activities
+- **Threats**
+  - Potential danger than exploits a vulnerability
   - Can't be controlled and need to be identified
   - Has potential to compromise your asset 
   - Anything that can exploit a vulnerability, intentionally or accidentally, and obtain, damage or destroy the asset
-- Vulnerabilities
+- **Vulnerabilities**
   - Can be treated
-  - Weaknesses to be identified 
+  - Weaknesses that enables threat to work around protection efforts
   - The weakest links, things that can compromise our assets
   - Proactive measures should be taken
-- Risks
-  - Something that can go wrong
+- **Risks**
+  - Potential for loss/damage/destruction of an asset as a result of a threat exploiting a vulnerability
   - Can be mitigated or managed
   - Risk assessment -> Identify critical assets
   - Asset that has a vulnerability to be exploited by a threat, in consequence and likelihood
@@ -837,43 +937,39 @@ Hardware Failure | Hardware screws up and shit
 Software Failure | Software commits suicide
 Techincal obsolences | Old stuff
 
-
-### Security through Obscurity
-
-
-### Infosec Controls
-#### SETA - Security Education Training and Awareness
-- Foster a culture of security
-- Influence the security behaviors of employees
-- Draws its aims and objectives from security policy and security strategy
-- Once an organization has conducted a comprehensive security risk assessment, a critical aspect of crafting the risk mitigation strategy is to determine how to use SETA to complement formal controls and technical controls.
-
-
-#### Risk Management
+### Risk Management
 ![](img/srm.png)
 - **Identify**
-  - Examine current security situation
   - What's the assets we want to protect
+  - Contextual analysis
   - Vulnerability analysis
   - May have residual risks: Risk remains on asset even after existing controls are applied
+  - Common threat sources 
+    - natural threats - floods, earthquakes, hurricanes
+    - Human threats - unintentional and deliberate attacks
+    - Environmental threats - power failure, pollution, hazmat
 - **Assess**
-  - Relative risk of each vulnerability
+  - Relative **Risk** of each vulnerability
     - Quantitative and qualitative methods
+    - Quantitative = Loss expectancy = (Single Loss Expectancy)*(Rate of Occurence)
+      - Single Loss Expectancy means the value of loss of the asset. 
   - Impact vs Likelihood
     - **Impact** in dollars and cents 
       - Depends on the risk, not the asset 
       - e.g. cost of confidentiality attack is different to an availability attack
     - **Likelihood** of the threat manifesting
       - Can be calculated from a number of sources (past incidents, experience, simulations, expert heuristics)
+    - **Organization Effect**: How much it will change or hinder business operations
 - **Response**
   - What you actually do when it happens
-- **Control**
+- **Control/Risk Management**
   - For each threat, create list of control ideas
   - Formal: Risk management, Policies, Access Control
     - Access control: Mandatory or discretionary. Can be based on authority in organization, or based by role or task
-    - Control **strategies** - control each risk by: 
+    - **Risk control strategies** - control each risk by: 
       - Safeguards (**avoidance** - preferred approach), 
       - transfer the risk (**transference**), 
+        - Think of insurance companies
       - reduce impact by incident response plans (**mitigate**) 
         - Incident response plan
         - Disaster recovery plan
@@ -887,11 +983,23 @@ Techincal obsolences | Old stuff
     - When cost of control < cost of impact
   - Informal: SETA
   - Technical
+- **Maintenance or Review**: How are we doing now? Should we review where we stand?
+
+![](img/riskassessment2.png)
+![](img/riskdeterminationmatrix.png)
+
+
+### Infosec Control Concepts
+#### SETA - Security Education Training and Awareness
+- Foster a culture of security
+- Influence the security behaviors of employees
+- Draws its aims and objectives from security policy and security strategy
+- Once an organization has conducted a comprehensive security risk assessment, a critical aspect of crafting the risk mitigation strategy is to determine how to use SETA to complement formal controls and technical controls.
 
 #### Infosec Policy
-Course of action that conveys instructions to those who make decisions, take actions and perform other duties. They can be strategic level or operational level.
+Course of action that conveys instructions to those who make decisions, take actions and perform other duties. They can be strategic level or operational level. Also called practices/procedures
 
-#### Infosec Security Strategy 
+#### Infosec Strategy 
 Future course of security actions to be enacted upon using a range of formal, informal and technological controls at a tactical and operational level tor educe security risk.
 
 - Prescriptive: Involves decision making abaout a future course of action
@@ -950,6 +1058,7 @@ Extra information from Solove, 2008
 - Invasion
   - Intrusion
   - Decisional interference
+
 
 
 ## Case Studies
