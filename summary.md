@@ -23,7 +23,7 @@
     - [Vulnerabilities, Risks, Controls](#vulnerabilities-risks-controls)
     - [Privacy, Anonymity, and Security](#privacy-anonymity-and-security)
     - [Assets, Threats, Vulnerabilities, Risks](#assets-threats-vulnerabilities-risks)
-    - [Data, information and knowledge](#data-information-and-knowledge)
+    - [Data, information and knowledge leakages](#data-information-and-knowledge-leakages)
     - [Common Threats to Infosec](#common-threats-to-infosec)
   - [Managing Security Risks](#managing-security-risks)
     - [Risk Management](#risk-management)
@@ -47,6 +47,7 @@
       - [Knowledge Leakage - Multidimensional Problem](#knowledge-leakage---multidimensional-problem)
       - [Knowledge Leakage Framework](#knowledge-leakage-framework)
       - [KLR (KL risk)](#klr-kl-risk)
+      - [Knowledge Leakage Contexts](#knowledge-leakage-contexts)
       - [Prevention of Knowledge Leakage](#prevention-of-knowledge-leakage)
   - [Cryptography](#cryptography)
     - [Secret-key crypto](#secret-key-crypto)
@@ -289,7 +290,7 @@ Some of them are already covered by the CIA
   - Asset that has a vulnerability to be exploited by a threat, in consequence and likelihood
   - `Asset + Threat + Vulnerability = Risk`
 
-### Data, information and knowledge
+### Data, information and knowledge leakages
 - Fahey and Prusak: data, information and knowledge compared
   - data: raw facts and no
   - information: processed data
@@ -493,8 +494,8 @@ Future course of security actions to be enacted upon using a range of formal, in
 - **Perimeter defense**
   - Physical boundary
   - Actual enclosures of servers 
-  - **Firewalls**
-- Compartmentalization
+  - Firewalls
+- **Compartmentalization**
   - Different target zones secured separately
   - DMZ
 - **Layering**/**Defense in Depth (DiD)**
@@ -571,6 +572,32 @@ The target is the asset, not the defenses. Figure out your weakest links.
 - extent to which an org is threatened by a KL event
   - function of impact and likelihood
   - KLR = KL impact x KL likelihood
+
+
+#### Knowledge Leakage Contexts
+- Knowledge leakage contexts
+  - Human
+    - Develop trust between individuals 
+    - Use of deterrents
+    - Individual risk management strategies
+    - User behavior analytics
+    - Education and training
+    - Gamification 
+    - Decoys
+    - Security culture -> Habits
+    - Use of deterrents
+    - Knowledge sharing/communities
+    - Peer mentoring policy
+  - Enterprise
+    - Knowledge protection rokes
+    - Protection of knowledge flows
+  - Technological
+    - MDM
+    - Usage policy
+    - Encryption
+    - Sandboxing
+    - Remote administration
+    - Device profiling
 
 #### Prevention of Knowledge Leakage
 - personal context
@@ -1074,7 +1101,6 @@ Truth = (x-1/4) * 2
   - periodically check privacy settings and update them
   - turn off settings that share information unnecessary for use/service
   - Use HTTPS Everywhere, VPNs
-
 
 
 ## Industrial Perspectives of Infosec 

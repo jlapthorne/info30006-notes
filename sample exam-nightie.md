@@ -10,6 +10,7 @@ Exam will be 2 hours
     - In the CIA triad, this provides an extension of integrity of information, in which the use cases demands integrity of information via avenues of ensuring information can be held accountable from the producing parties 
   - Anonymity
     - The concept of staying anonymous, or which information source and transfer are shaped in a way to make it intricate or impossible to be identified
+    - Protocol participants remain unidentified
     - They represent the an alternative use case of information. When coupled with confidentiality, this goal attempts to ensure information is untraceable to its original bearer by any means
 - List 5 different types of security threats and provide an example of each.
   - Acts of human error
@@ -80,28 +81,56 @@ Exam will be 2 hours
   - It was mandated back in the era of the information wars in the 80s/90s by the US, in which it mandates export grade cryptography. 
   - The restrictions were already removed, but a lot of browsers and servers still support it
 - Write two desirable secrecy properties of a key exchange protocol, and write a sentence explaining what they mean.
-  - Forward secrecy
-  - Future secrecy
+  - Forward
+  - Future
 - List three crucial security properties necessary for elections.
   - CIA
-- You  are  a  manager  in  an  organisation  and  are  explainingto  a  staff member why and how to use Signal.  Briefly justify why they should use Signal, and at least one important applied security feature in it including instructions on how to use it.
+  - Verifiabiility (falls under integrity)
+    - Voters' vote cast as intended
+    - Vote exactly once only
+  - Privacy (falls under confidentiality)
+    - Only the person who votes it know what it is and that the vote is anynymized or de-identified
+  - Anonymity (can also fall under confidentiality)
+  - Achieving this is hard for remote voting - and we can only attempt to get close to the solution (of fixing the problem). No one actually knows or will be able to completely solve it. 
+- You  are  a  manager  in  an  organisation  and  are  explaining to  a  staff member why and how to use Signal.  Briefly justify why they should use Signal, and at least one important applied security feature in it including instructions on how to use it.
+  - Define E2E Encyption
+    - Only the communicating users hold the full keys needed to encrypt and decrypt conversations and their information, because only they have the full set of keys to reconstruct the data
+    - When sent to the server, the server stores nothing but the encrypted data, so they will have no means of understanding or decrypting information in transit
+  - Define how it works
+  - Why is it better than using POTS/Telegram/whatever
+    - Comparative benefits 
+    - Risks of using other services with no E2E 
+  - Applied security feature: Security key
+    - These are public key fingerprints from participants 
+    - How to use: Open a chat, tap title, select "compare safety number", tap on the QR code, scan a person's QR code, or inspect the numbers manually. 
 - Give 3 specific examples of digital footprints that impinge on privacy.
+  - Social media posts
+  - User agent strings
+  - Search history
+  - Moving through webpages
+  - Click counters
+  - Which websites you go through
+  - Location data
+  - IP Address
 - Provide at least one way to improve user adoption of privacy-enhancing technologies and explain why it will improve adoption (briefly)
+  - Better UX (Goldberg, 2016)
+    - 30% of users surveyed prioritizes ease of use over security 
+    - So try to knack that out - don't try to fight the user!
 
-## Part 3: Privacy MCQ 
-- WhatsApp provides confidentiality of communication and anonymity: **True**, following Signal protocols 
+## Part 3: Privacy 
+- WhatsApp provides confidentiality of communication and anonymity: **False**, following Signal protocols it does not have anonymity
 - Which of these are samples of metadata: 
-  -  **The creation date of a cell-phone photograph**
+  -  The creation date of a cell-phone photograph
   -  Your public key listed in your signature (on some implementations this can be defined as part of metadata, but we are now sticking to the dictionary definition of metadata)
   -  A video attachment sent over WeChat
   -  All of the above
-  -  Two of the above
+  -  **Two of the above**
 - If an APP entity holds personal information about an individual, the entity must,  on  request  by  the individual,  give  the  individual  access  to  the information without exception: **false**
 - An APP entity must have a clearly expressed and up to date policy about the management of personal information by the entity which contains:
   - the kinds of personal information that the entity collects and holds;
   - how the entity collects and holds personal information;
   - the purposes for which the entity collects, holds, uses and discloses personal information;
-  - all of the above
+  - **all of the above**
 - In relation an APP entity’s functions or activities,  the  entity  must  take reasonable  steps  to  make  sure  it  complies  with  the  Australian  Privacy Principles in its:
   - practices
   - procedures
@@ -110,5 +139,20 @@ Exam will be 2 hours
 
 ### Privacy Essay 
 - You take a photo of your cat on your smartphone and then upload it to a cat website. What metadata could be included specifically in that photos that infringes your privacy (not to mention your cat’s)
+  - Location
+  - Time
+  - Time of upload
+  - Device
+  - Camera properties
+  - IP address
+  - User Agent String
+  - EXIF data
+  - Camera fingerprinting
 - Explain briefly why privacy is important even if you’re not doing anything ‘wrong’
- 
+  - Your personal information can still be used against you
+    - Identity theft - people can pretend to be you, and they can steal your bank information
+    - Empowering adversaries to use your data for wrongdoings without your consent, allowing crime against you
+    - You don't need your competitors to know who you're talking to 
+  - Privacy of citizens and individuals collectively is important not just for the people, but for the state in attempting to control rates of wrongdoings
+    - Oppresive regimes has been known to use mass surveillance, an overreach in terms of privacy, to supress uprisings (such as the Arab Spring) - extreme examples, and it doesn't necessarily 
+     - Cohen (2013) argues that freedom from survelliance is needed for an informed and reflective citizenship, and later elaborates on that position by showing how surveillance (and thus modulation enables by surveillance) stifles innovation by restricting the processes of play and experimentation

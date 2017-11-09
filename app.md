@@ -6,7 +6,7 @@
 - People should be able to use pseudonyms or not identify themselves when dealing with APP entities, except if it is required by law for individuals to identify themselves or if it is impractical to use them
 
 ## Collection of Personal Information
-- Collect only what's necessary to 
+- Collect only what's necessary to do the job
 - Must not collect personal information without consent, required by the business, functions or activites, required by law, permitted general situation exists to collect information, tied to health sitautions that require exchange of private information.
   - The Immigration Department is granted access to information related to enforcement activites 
 - Means of collection
@@ -14,7 +14,7 @@
   - Must be by consent or authorized by law 
 
 ## Dealing with Unsolicited Personal Information
-- If there's anything entities do not olicit, the entity should consider if they were actually allowed to colelct that information. 
+- If there's anything entities do not solicit, the entity should consider if they were actually allowed to collect that information. 
 - The entity should destroy the information if the information wasn't meant to be there
 
 ## Notification of the Collection of Personal Information
@@ -30,7 +30,7 @@
   - Whether the APP entity may send the data overseas and to where 
 
 ## Dealing With personal Information
-- YOu can only hold information that has been consented 
+- You can only hold information that has been consented 
 - The individual would reasonably expect entities to use the data only if related to why it's being retained, or if required byy law, or permitted general/health situations exist 
 - If an APP entity uses or discloses personal information, they must make a written note of the use. 
 - This does not apply for to the use or disclosure by an organization of personal information for the purpose of direct marketing or government related identifiers 
