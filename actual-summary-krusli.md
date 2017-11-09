@@ -74,7 +74,7 @@ Protecting assets against unwarranted access/disclosure/modification/destruction
     - access control: system to restrict access to an asset by user
       - mandatory (MAC): users/data owners have limited control over access of information; controlled by admin/higher-up
       - discretionary (DAC): users/data owners can control access to their own data
-      - role-based: realw-rodl approach - assign permissions based on role
+      - role-based: real-world approach - assign permissions based on role
       - task-based
       - central authority
 - maintenance/review: how are we doing now? revise strategies/applied controls?

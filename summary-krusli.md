@@ -9,7 +9,7 @@
     - and, consequently, information systems, where information is created, processed, stored, transmitted and destructed,
   - free from threats
 - in other words: defending information
-  - preventing the unauthorised access, use, disclosure, disruption, modification, inspection, recording or destruction of information
+  - preventing the unauthorised access, use, disclosure, disruption, modification, inspection, recording or destruction of information (CNSS 2010)
 
 ### Sensitive information
 Information protected against unwarranted disclosure (to protect privacy/security of an individual/organisation)
@@ -394,7 +394,7 @@ Set of managerial and technical controls to protect information resources.
 ### Policy
 - policy:
   - plan/course of action
-  - conveys instructions from an organisation's senior management to those who make decisions, take actions, and perform othr duties (Whitman, ME & Mattord, HJ 2012)
+  - conveys instructions from an organisation's senior management to those who make decisions, take actions, and perform other duties (Whitman, ME & Mattord, HJ 2012)
 - types
   - strategic-level guidance
   - operational-level guidance
