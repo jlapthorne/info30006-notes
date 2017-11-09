@@ -38,11 +38,20 @@
     - [Differential Privacy](#differential-privacy)
   - [The Security Audit](#the-security-audit)
   - [Industrial Perspectives of Infosec](#industrial-perspectives-of-infosec)
+    - [Political Influence in Infosec](#political-influence-in-infosec)
+    - [SCADA](#scada)
+    - [Gaining Information from People](#gaining-information-from-people)
+    - [Why do organizations run old software?](#why-do-organizations-run-old-software)
+    - [Realities](#realities)
   - [Security Analysis](#security-analysis)
+    - [Real World Security](#real-world-security)
     - [Basic Security Analysis](#basic-security-analysis)
-    - [What security strategies are effective](#what-security-strategies-are-effective)
-    - [Types of security strategies](#types-of-security-strategies)
-    - [The Common ADversary](#the-common-adversary)
+      - [Who/What Are We Protecting](#whowhat-are-we-protecting)
+      - [Who/What is the adversary/threat](#whowhat-is-the-adversarythreat)
+      - [What are the security requirements](#what-are-the-security-requirements)
+      - [Types of security strategies/approaches](#types-of-security-strategiesapproaches)
+    - [Threat MModels](#threat-mmodels)
+    - [The Common Adversary](#the-common-adversary)
   - [Knowledge Leak](#knowledge-leak)
     - [Data vs Information vs Knowledge](#data-vs-information-vs-knowledge)
     - [Knowledge Leakage](#knowledge-leakage)
@@ -60,7 +69,7 @@
     - [Privacy and Anonymity](#privacy-and-anonymity)
     - [Authentication](#authentication)
     - [Cryptography and Encryptions](#cryptography-and-encryptions)
-    - [Threats to Infosec](#threats-to-infosec)
+    - [Common Threats to Infosec](#common-threats-to-infosec)
     - [Security through Obscurity](#security-through-obscurity)
     - [Infosec Controls](#infosec-controls)
       - [SETA - Security Education Training and Awareness](#seta---security-education-training-and-awareness)
@@ -187,6 +196,13 @@ Threats can't be controlled, and you can't do much to identify them. In order to
   - TLS certificate can be issued from one CA to many sites
   - If domain name doesn't match, there's an error 
   - CA Alt Name - allowance to use the same certificate for all these sites
+- It's important to realize you don't know your root CAs
+  - If you work for an organization and evenif it's your machine, if you use BYOD or free wifi, you have an MBM setup which applies restrictions to your machine. But it will also install a certificate. That certificate is typically an intermediary that can sign certificates as anything else.
+  - Organizations do this all the time, and intelligence services do it (but get caught up when people audit the CA)
+  - Every government ask as it sees fit
+  - You can't set up constraint of how power can be used. Once it's out there, it's out there.
+  - What can these be misused for? What powers does it give that we won't have any control over?
+  - It's over once Pandora's Box is open
 
 ### Example: Maths and Democracy: Internet Voting
 - in 2015, NSW ran a trial of an electronic voting system
@@ -414,7 +430,8 @@ What clashes with the 0 message?
 - People hate OTPs
 - Login credeintials should be the same - SSO
 - Better UX matters
-- Inconsistent design, poor error messaging, clunky communications, site slowness or unavailability makes it less ppealing to the end usser to accept security
+- Inconsistent design, poor error messaging, clunky communications, site slowness or unavailability makes it less ppealing to the end user to accept security
+  - e.g. Keybase and Signal are perhaps the best applications of crypto we have these days that abstracts away all the hard parts of maintaining and signing PGP keys manually but they are still buggy, clunky, or slow to be widely accepted. 
 - Privacy policy: A company's privacy policy describes how it gathers, uses, discloses and manages a consumer's information
 
 ### How do you get people to give a shit about infosec?
@@ -440,15 +457,17 @@ People think that if they only engage in legal activity, there's nothing they sh
 - "You can't be attacked when people don't know you exist"
 - Requires knowledge of data and information of software/infrastructure to attack against this
 - The less you reveal, the better - don't reveal more than you have to to the world
+  - Limit exposed information
+  - What's the least information needed to get the job done
+  - Obscurity doesn't mean indended is more secure 
 - We're trying to answer "what is the least required amount of information to get the job done?"
-  - Obscurity doesn't mean intended misdirection
   - Can violate the principle of simple means more secure
   - It's not always practical to have honeypots but it's not always the intention with the saying
 
 ### Differential Privacy
 https://research.neustar.biz/2014/09/08/differential-privacy-the-basics/
 
-The aim is to add random noise to distort data. 
+The aim is to add random noise to distort data. The mechanism acts in such a way that tiny changes in the dataset does not change the output by much, so that any individual can claim they have never contributed to the dataset. This suggestion is plausible given that attackers only query the database through several specified means a limited number of times. 
 
 Baseline principle: Flip a coin. If it's heads, answer honestly. If it's tails, flip it again and answer depending if it's heads or tails.
 
@@ -468,7 +487,8 @@ Truth = (x-1/4) * 2
 - We're trying to hide information of that one person, by arguing that if the person is added to the database, it's not going to change anything to the data
 - We add randomness to the data to make sure that it doesn't change very much when real responses are taken out to preserve some privacy
 - In particular, this allows us to protect queries against *one* individual in this definition
-
+- We're trying to hide information of that one person, by arguing that if the person is added to the database, it's not going to change anything to the data
+- It attempts to shield the conclusion that *any one individual* is within a dataset even by comparing two distinct datasets, with or without that individual. 
 
 ## The Security Audit 
 - Patch and update
@@ -479,40 +499,169 @@ Truth = (x-1/4) * 2
 
 
 ## Industrial Perspectives of Infosec 
+- In those early days of the internet, there's nothing of sort of what we face these days in the internet. 
+- In infosec, think of how the adversary thinks
+- Universities may actually have more data to protect than companies, with bigger security implications
+- **IT Security is not just saying "no." It should empower people to protect their privacy.**
+  - Because aside from secure, you want people to get shit done, too. 
+  - People don't give a shit. If you stop people from getting things done, they will bypass you.
+  - We need to make things easy for people to use, otherwise infosec fights the user
+- Data sovereignity
+  - Equifax has so much data going out and no means of actually detecting what went wrong
+  - Data sovereignity is faced everyday, but we don't necessarily find it important
+- Day do day we don't give a shit - what degree of convenience you are willing to give up
 
+### Political Influence in Infosec 
+- The senior guys at kaspersky are arrested by the Russian Government, following people in the intelligence that talked to the FBI. The government isn't fond of Kaspersky. 
+- Congress takes so much money from lobbyists, who knows why the decisionn is made, and it's really just money.
+- You can get trade wars over software
+- Restrictions on exports of information is always a pain in the ass for years 
+- There's two legislations for crypto: Give us a backdoor or a way to break at the endpoint
+- Open source becomes the savior, but it comes back to inertia. People follow inertia rather than trying to get something kinky to run
+- Software is intangible, so it's hard to restrict people from using software
+  - e.g. the crypto wars
+  - PGP was first printed to Australia as a fucking book
+  - That was the only way to get PGP out of the US 
+- Restrictions on exports of information is always a pain in the ass for years 
+  - Legislations make it really hard for people to write legit crypto software
+  - The words are considered as munitions in technology
+- We are currently in an infosec cold war - we have proxy wars waged from breach of infosec protocols, such as the Iranian nuclear program hacks where they destabilize the centrifuge and blow it up while interrupting the feedback loop
+- The Vault 7 and Shadow Brokers story.
+  - If you look at the timing of what happened and you start inferring some stuff, you can draw interesting conclusions on who they may have been
+  - Who likes dumping stuff for targeted effect? It's almost to show dollars and spotlight
+  - Some of the attack kits left should not have been on servers
+  - The NoBus: nobody but us.
+    - Even our allies can't see it, only the US does
+    - When you talk about means and bugs in software, the idea of only your guys will find the bugs is delusional
+    - The flipside is, with Eternal Blue, when the NSA knew what was coming, it's almost certain NSA reached out to Microsoft and told them to patch their shit.
+    - Only 91 days later it's exploited by WannaCry
+    - The NSA and CIA knows already
+
+### SCADA
+- Supervisory Control and Data Acquisition
+- Industrial and commercial level systems to control industrial machines. 
+- Folks who can deal with SCADA are better compensated than professionals who don't give a shit
+- It's more about what happens in terms of what stakes you have. If a mistake means 3 million people lose power, it brings an interest of its own
+- In reality, people will opt for convenience. So while you may have a protocol barrier, there's no longer an air gap. 
+
+### Gaining Information from People
+- Human beings follow a similar activity during the day, following the same pattern. To gather intel, this sort of info is nice and easy.
+- If we have enough metadata, we don't need the data. We kill people from metadata.
+- A signature strike is through metadata signatures. You get Hellfire missiles up your ass from your DNS.
+- Datacenters have people sharing smaller IP address spaces. Basically, one of the sites that got blocked blocks everything. 
+
+### Why do organizations run old software?
+- Only certain environments are certified for it, or equipments will no longer support it
+- Also money
+- People run things and expect them to run for years above the service contract
+- While it's hard to blame institutions, questions must be asked of the manufacturer where people sweetspot profit on them by going minimal effort vs projected expectation of lifetime of use 
+- People have to buy new shit. At what point can organizations be forced to replace things.
+- Organizations make the tradeoff called where can I spend money for maximum effect. If there is not a perceived risk, they will not spend money there
+- People will only do something when shit hits the fan
+
+
+
+### Realities
+- People will trade off convenience for infosec 
+- **Zooko's Triangle**: Tradeoff of decentralization, security and usability
 
 ## Security Analysis 
+### Real World Security 
+- **Specification**: What are systems supposed to do
+- **Implementation**: How does it work?
+- **Correctness**: Does it actually work?
+- **Human Nature**: Can the system survive "clever" users
+
 ### Basic Security Analysis
-- **Who/What Are We Protecting**
-- **Who/What is the adversary/threat**
-- **What are the security requirements**
+#### Who/What Are We Protecting
+- Get information of **asset value**
+- Understand the system architecture and how it works
+- What is the operating value? How much will we lose if the resource dies?
+- What is the replacement cost? How long would it take to replace it?
+- What is the replacement cost if you lose it, and how long would it take to replace it?
 
-### What security strategies are effective
+#### Who/What is the adversary/threat
+- What are their motivations? Who are they?
+- Estimate their resources (time and money)
+- Estimate number of attackers and the probability of attack
+
+#### What are the security requirements
+- Confidentiality
+- Integrity
+- Authenticty
+- Availability
+- Auditability
+- Access control
+- Privacy
+- etc...
+
+#### Types of security strategies/approaches
 - No security
+  - Legal protection or patents
+- Strong defense
+  - Technical means
 - Resilience to attacks
+  - Redundanacy
 - Detection, recovery and countermeasures 
-
-### Types of security strategies 
+  - Intrusion detection
+  - Redundancy and backups
+  - Response takes appropriate corrective actions against threats
+- Countermeasure
+  - Preventive countermeasure are barriers
+  - It prevents attackers from getting access of data behind it
 - Prevention and Detection
   - Passive defense
   - Not all measures are physical 
-  - Hardest strategy to implement and often the most expensive
+  - Hardest strategy to implement and often the most expensive - including physical protection
   - Experts can still find target
 - Deterrance
+  - Employ disciplinary actions to influence human behavior
+  - Influenced by certainty and severity of sanctions
+  - Giving punishments from violations may stop insider threats
 - Surveillance
-- Detection and response
+  - Systematic monitoring of the security environment towards developing situational awareness
+  - Assist to adapting in changing circumstances and threats 
+  - Monitoring activity logs, CCTV footage
+- Deception
+  - Distraction
+  - Honeypots
 - Perimeter defense
+  - Physical boundary
+  - Actual enclosures of servers 
+  - Firewalls
 - Compartmentalization
-- Layering
+  - Different target zones secured separately
+  - DMZ
+- Layering/Defense in Depth (DiD)
+  - Multiple barriers that complement each other
+  - Predicated in the belief that a single strategy is insufficient
+  - Another backs it up if one fails 
+
+### Threat MModels 
+- Can't protect against everything
+  - May be too expensive or inconvenient to cover everything
+  - benefit < cost
+- Identify most likely ways a system can be attacked
+  - Likely attackers and their resources 
+    - Dumpster diving or nation states
+  - Identify consequences
+    - Embarrasment vs bankruptcy
+  - Design measures accordingly
+    - Accept that they will not defendd against all attacks 
 
 
-### The Common ADversary
+### The Common Adversary
 - Attacker action
-  - Passive (just there waiting or unintentionally recovering exploits)
-  - Active (for malicious purposes)
+  - Passive (just there waiting or unintentionally recovering exploits - eavesdropping)
+  - Active (for malicious purposes - data injection)
 - Attacker sophistication
   - Script kiddies vs the CIA
 - Attacker capability
+  - External attacker - no prior knowledge of resources
+  - Internal attacker - knows all information of crypto, complete access
+
+Think like an attacker. They attack assetrs, not defenses, and will attempt to exploit weakest parts of defenses. 
+
 
 ## Knowledge Leak 
 ### Data vs Information vs Knowledge 
@@ -666,13 +815,13 @@ See markdown document outlining the APP.
   - Ensure data is correct, prvenintg unauthorized or improper changes
 
 ### Authentication
-- Verify identity
+- Authentication/Identification: Verify identity of other participants
 - Data authentication: Ensure that the data originates from claimed senders 
 
 ### Cryptography and Encryptions
 - Cryptography: Enables secure information transactions between intended sender and intended recipient
 
-### Threats to Infosec 
+### Common Threats to Infosec 
 Categories | Examples
 -|-
 Acts of human error or failure | Accidents, employee mistakes. Human error is all about mistakes in putting in or accessing information
@@ -825,12 +974,12 @@ Extra information from Solove, 2008
   - Make sure you understand the linkbetween the three topics. Understand the definitions, show how constructs relate with one another. 
   - Put things together - mind map it if you need it
 - The What, why, when, who, where
-  - Why is infosec and privacy is important
-  - What does it encompass/'
-  - What are we trying to protect and how?
-  - What are the threats out there and how are they classified
-  - Where did they come from? What can be done about them? What happens if we ignore them?
-  - Are the groupings really vital? Is it the same group of threats? Has it changed? What are the new infosec threat buzzwords
+  - **Why** is infosec important
+  - **What** does it encompass?
+  - **What** are we trying to protect and **how**?
+  - What are the **threats** out there and how are they classified
+  - **Where** did threats come from? What can be done about them? What happens if we ignore them?
+  - Are the groupings really vital? Is it the same group of threats? Has it changed? What are the new infosec threat buzzwords?
   - Think about what it actually means in our daily lives. 
 - Think about risks
   - Risks are inherent in every single workshop topic
