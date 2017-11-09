@@ -241,89 +241,89 @@ Protecting assets against unwarranted access/disclosure/modification/destruction
 - use
   - exchanging a secret key for secret-key cryptography
 
-  #### TLS
-  - TLS
-    - encrypts communication
-    - adds secrecy (confidentiality) and integrity
-    - checks the public key of the website you are visiting: if it does belong to the organisation that owns this URL
-  - digital signatures: digital analog of pen signatures
-    - but very different implementation
-    - RSA signature: computed using the private key
-      - and verifiable using the public key -> verify if private key holder *did* sign the message
-      - *d*, computed from *p* and *q*
-        - totient: lcm of (p-1) and (q-1)
-        - d: modular multiplicative inverse of e (mod totient)
-          - d x e mod totient = 1
-      - signing: holder of private key has a value d with the property (x<sup>e<sup>d</sup></sup> = x (mod N))
-        - getting at d is equivalent to factorising N
-        - verify signature: S<sup>e</sup> = Pad(Hash(M)) (mod N)
-          - M: message
-          - N: public key component
-  - built-in certs in PCs: root certs
-    - => chain of trust
-      - can break down if: CA tricked into issuing fradulent certificates, CAs being compromised
-  - example: Western Australia Electoral Commission
-    - cert does not belong to them, but a cloud service provider
-    - domain name on the certificate does not match
-      - domain name of the EC is in "Certificate Subject Alt Name"
-    - this was with good intentions - the EC saw the ABS DDoS attack and bought DDNS protection from a 3rd party
-      - the 3rd party interposes (posing in between every connection from the voter to the EC) on all the connections
+#### TLS
+- TLS
+- encrypts communication
+- adds secrecy (confidentiality) and integrity
+- checks the public key of the website you are visiting: if it does belong to the organisation that owns this URL
+- digital signatures: digital analog of pen signatures
+- but very different implementation
+- RSA signature: computed using the private key
+  - and verifiable using the public key -> verify if private key holder *did* sign the message
+  - *d*, computed from *p* and *q*
+    - totient: lcm of (p-1) and (q-1)
+    - d: modular multiplicative inverse of e (mod totient)
+      - d x e mod totient = 1
+  - signing: holder of private key has a value d with the property (x<sup>e<sup>d</sup></sup> = x (mod N))
+    - getting at d is equivalent to factorising N
+    - verify signature: S<sup>e</sup> = Pad(Hash(M)) (mod N)
+      - M: message
+      - N: public key component
+- built-in certs in PCs: root certs
+- => chain of trust
+  - can break down if: CA tricked into issuing fradulent certificates, CAs being compromised
+- example: Western Australia Electoral Commission
+- cert does not belong to them, but a cloud service provider
+- domain name on the certificate does not match
+  - domain name of the EC is in "Certificate Subject Alt Name"
+- this was with good intentions - the EC saw the ABS DDoS attack and bought DDNS protection from a 3rd party
+  - the 3rd party interposes (posing in between every connection from the voter to the EC) on all the connections
 
-      ### Internet voting
-      #### Picture
-      - system: voters voting at PCs, encrypted -> sent to EC server -> election outcome
-      - what's wrong?
-        - vote multiple times
-        - manipulation at the EC server
-        - can vote for someone else by pretending to be someone else
-        - changing their vote right on their own PC
-        - less privacy: someone at the EC might be able to trace the vote
+### Internet voting
+#### Picture
+- system: voters voting at PCs, encrypted -> sent to EC server -> election outcome
+- what's wrong?
+  - vote multiple times
+  - manipulation at the EC server
+  - can vote for someone else by pretending to be someone else
+  - changing their vote right on their own PC
+  - less privacy: someone at the EC might be able to trace the vote
 
-      #### Security properties required
-      - verifiability: no one can manipulate the output
-        - only eligible voters vote, only once
-        - voters should get evidence that their vote was cast as intended and counted as cast
-        - everyone gets evidence votes were properly tallied
-      - privacy: coercers cannot manipulate the inputs e.g. by blackmail
-      - achieving both is hard, especially for remote voting
+#### Security properties required
+- verifiability: no one can manipulate the output
+  - only eligible voters vote, only once
+  - voters should get evidence that their vote was cast as intended and counted as cast
+  - everyone gets evidence votes were properly tallied
+- privacy: coercers cannot manipulate the inputs e.g. by blackmail
+- achieving both is hard, especially for remote voting
 
-      #### FREAK (factoring RSA export keys)
-      - 1990s: US gov't restricted export of strong crypto, in particular RSA w/ more than 512-bit keys
-        - servers and clients in US can use strong RSA params
-        - software made outside US not bound by this restriction
-        - software produced in the US but exported outside was restricted to this "export grade" crypto
-      - lots of servers (and client) maintained option to use "export grade" crypto in case they have to communicate with a restricted client/server
-        - many still do
-      - problem with 512-bit RSA: only costs $100 to break running overnight on Amazon EC2 cloud
-      - how it works
-        - client: "I'd like to use 1024 or 2048-bit RSA"
-        - attacker MITM: "I'd like to use 512-bit RSA"
-        - server response: OK, here's my 512-bit RSA-EXP key (with valid cert chain)
-        - buggy client accepts 512-bit key and uses it to encrypt comms
-        - attacker uses factored 512-bit key to control SSL/TLS session
+#### FREAK (factoring RSA export keys)
+- 1990s: US gov't restricted export of strong crypto, in particular RSA w/ more than 512-bit keys
+  - servers and clients in US can use strong RSA params
+  - software made outside US not bound by this restriction
+  - software produced in the US but exported outside was restricted to this "export grade" crypto
+- lots of servers (and client) maintained option to use "export grade" crypto in case they have to communicate with a restricted client/server
+  - many still do
+- problem with 512-bit RSA: only costs $100 to break running overnight on Amazon EC2 cloud
+- how it works
+  - client: "I'd like to use 1024 or 2048-bit RSA"
+  - attacker MITM: "I'd like to use 512-bit RSA"
+  - server response: OK, here's my 512-bit RSA-EXP key (with valid cert chain)
+  - buggy client accepts 512-bit key and uses it to encrypt comms
+  - attacker uses factored 512-bit key to control SSL/TLS session
 
-      ### Diffie-Hellman
-      - 2 parties: Alice and Bob
-      - Numbers
-        - primes: g and p - both Alice and Bob know these
-        - Alice picks a secret number a
-        - Bob picks a secret number b
-      - Steps
-        - Alice computes A = g<sup>a</sup> mod p; Bob computes B = g<sup>b</sup> mod p
-        - Alice sends A to Bob, Bob sends B to Alice
-        - Alice calculates S = B<sup>a</sup> mod p, and Bob calculates S = A<sup>b</sup> mod p
-          - a and b are "local" secrets, A and B are in "public view" - sent through the network
-          - but the same key is still derived - thanks to a property of modulo exponents
-            - (g<sup>a</sup> mod p)<sup>b</sup> mod p = g<sup>ab</sup> mod p = (g<sup>b</sup> mod p)<sup>a</sup> mod p
+### Diffie-Hellman
+- 2 parties: Alice and Bob
+- Numbers
+  - primes: g and p - both Alice and Bob know these
+  - Alice picks a secret number a
+  - Bob picks a secret number b
+- Steps
+  - Alice computes A = g<sup>a</sup> mod p; Bob computes B = g<sup>b</sup> mod p
+  - Alice sends A to Bob, Bob sends B to Alice
+  - Alice calculates S = B<sup>a</sup> mod p, and Bob calculates S = A<sup>b</sup> mod p
+    - a and b are "local" secrets, A and B are in "public view" - sent through the network
+    - but the same key is still derived - thanks to a property of modulo exponents
+      - (g<sup>a</sup> mod p)<sup>b</sup> mod p = g<sup>ab</sup> mod p = (g<sup>b</sup> mod p)<sup>a</sup> mod p
 
-      #### Signed DH
-      - Alice and Bob agree on g and p (large prime) as before
-        - George (adversary) learns about g and p too
-      - Alice generates a secret a and sends A = g<sup>a</sup> mod p to Bob
-        - and signs A with her private signing key
-      - Bob generates a secret b and sends B = g<sup>b</sup> mod p to Alice
-      - When Bob receives A from Alice, he checks her signature (using her public key) to make sure A is really from her
-        - takes care of the possibility of a MiTM attack
-      - Alice and Bob computes S = g<sup>ab</sup> mod p as before
-      - Bob sends Alice a message encrypted with their shared key S, using, for example AES
-        - AES(message, sharedKey)
+#### Signed DH
+- Alice and Bob agree on g and p (large prime) as before
+  - George (adversary) learns about g and p too
+- Alice generates a secret a and sends A = g<sup>a</sup> mod p to Bob
+  - and signs A with her private signing key
+- Bob generates a secret b and sends B = g<sup>b</sup> mod p to Alice
+- When Bob receives A from Alice, he checks her signature (using her public key) to make sure A is really from her
+  - takes care of the possibility of a MiTM attack
+- Alice and Bob computes S = g<sup>ab</sup> mod p as before
+- Bob sends Alice a message encrypted with their shared key S, using, for example AES
+  - AES(message, sharedKey)
